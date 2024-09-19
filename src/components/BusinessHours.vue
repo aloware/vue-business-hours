@@ -124,7 +124,6 @@ export default {
 
       this.$emit('updated-hours', val);
     },
-
     calculateOpenTime(closeTime) {
       const minutesPerHour = 60;
       const additionalHours = 9;
@@ -149,7 +148,6 @@ export default {
       // Format the new open time as a string with padded zeros
       return String(newHours).padStart(2, '0') + String(newMinutes).padStart(2, '0');
     },
-  
     calculateCloseTime(openTime) {
       const minutesPerHour = 60;
       const additionalHours = 9;
@@ -171,7 +169,6 @@ export default {
 
       return String(newHours).padStart(2, '0') + String(newMinutes).padStart(2, '0');
     },
-
     setClosingTimeBasedOnOpening(val) {
       const key = Object.keys(val)[0];
 

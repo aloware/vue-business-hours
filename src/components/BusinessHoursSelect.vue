@@ -1,5 +1,10 @@
 <template>
-  <select :name="optionName" @change="inputEventHandler" v-model="selected" :class="selectClass" @focus="hidePlaceholder" @blur="showPlaceholder">
+  <select :name="optionName"
+          :class="selectClass" 
+          v-model="selected" 
+          @focus="hidePlaceholder" 
+          @change="inputEventHandler" 
+          @blur="showPlaceholder">
     <option v-show="isFirstRow(index) && onlyOneRow(hours)" 
             value 
             disabled 

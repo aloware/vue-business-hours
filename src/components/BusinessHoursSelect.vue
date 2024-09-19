@@ -1,8 +1,14 @@
 <template>
-  <select :name="optionName" @change="inputEventHandler" v-model="selected">
-    <option v-show="isFirstRow(index) && onlyOneRow(hours)" value>{{
-      defaultText
-    }}</option>
+  <select :name="optionName" @change="inputEventHandler" v-model="selected" :class="selectClass" @focus="hidePlaceholder" @blur="showPlaceholder">
+    <option v-show="isFirstRow(index) && onlyOneRow(hours)" 
+            value 
+            disabled 
+            selected 
+            v-if="isPlaceholderVisible"
+            class="placeholder-text"
+            >
+      {{ defaultText}}
+    </option>
     <option v-show="isFirstRow(index)" value="24hrs">{{
       localization.t24hours
     }}</option>
@@ -24,6 +30,36 @@ import { helperMixin } from '../mixins/helperMixin';
 import { formFieldMixin } from '../mixins/formFieldMixin';
 export default {
   name: 'BusinessHoursSelect',
-  mixins: [helperMixin, formFieldMixin]
+  mixins: [helperMixin, formFieldMixin],
+  data () {
+    return {
+      isPlaceholderVisible: true
+    }
+  },
+  computed: {
+    selectClass() {
+      if (this.selected === "" || this.selected === "") {
+        return "placeholder-text"; // Apply custom class
+      } else {
+        return "";
+      }
+    }
+  },
+  methods: {
+    hidePlaceholder() {
+      this.isPlaceholderVisible = false;
+    },
+    showPlaceholder() {
+      this.isPlaceholderVisible = true;
+    },
+  },
 };
 </script>
+
+<style scoped>
+
+.placeholder-text {
+  color: #878686; 
+}
+
+</style>

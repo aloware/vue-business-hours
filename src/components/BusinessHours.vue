@@ -24,6 +24,12 @@ export default {
   components: {
     BusinessHoursDay
   },
+  data() {
+    return {
+      minutesPerHour: 60,
+      additionalHours: 9
+    }
+  },
   props: {
     days: {
       type: Object,
@@ -125,8 +131,6 @@ export default {
       this.$emit('updated-hours', val);
     },
     calculateOpenTime(closeTime) {
-      const minutesPerHour = 60;
-      const additionalHours = 9;
       const minHours = 0; // 12:00 AM is represented as 0 hours
       const [hours, minutes] = [
         parseInt(closeTime.substring(0, 2), 10),
@@ -134,38 +138,36 @@ export default {
       ];
 
       // Calculate the total minutes of the closing time
-      let totalMinutes = hours * minutesPerHour + minutes - (additionalHours * minutesPerHour);
+      let totalMinutes = hours * this.minutesPerHour + minutes - (this.additionalHours * this.minutesPerHour);
 
       // If the calculated open time is earlier than 12:00 AM, set it to 12:00 AM
-      if (totalMinutes < minHours * minutesPerHour) {
-        totalMinutes = minHours * minutesPerHour;
+      if (totalMinutes < minHours * this.minutesPerHour) {
+        totalMinutes = minHours * this.minutesPerHour;
       }
 
       // Calculate the new hours and minutes for the open time
-      let newHours = Math.floor(totalMinutes / 60);
-      let newMinutes = totalMinutes % 60;
+      let newHours = Math.floor(totalMinutes / this.minutesPerHour);
+      let newMinutes = totalMinutes % this.minutesPerHour;
 
       // Format the new open time as a string with padded zeros
       return String(newHours).padStart(2, '0') + String(newMinutes).padStart(2, '0');
     },
     calculateCloseTime(openTime) {
-      const minutesPerHour = 60;
-      const additionalHours = 9;
       const maxHours = 23;
       const [hours, minutes] = [
         parseInt(openTime.substring(0, 2), 10),
         parseInt(openTime.substring(2, 4), 10),
       ];
 
-      let totalMinutes = hours * minutesPerHour + minutes + (additionalHours * minutesPerHour);
-      const maxMinutes = maxHours * minutesPerHour + 30;
+      let totalMinutes = hours * this.minutesPerHour + minutes + (this.this.additionalHours * this.minutesPerHour);
+      const maxMinutes = maxHours * this.minutesPerHour + 30;
 
       if (totalMinutes > maxMinutes) {
         totalMinutes = maxMinutes;
       }
 
-      let newHours = Math.floor(totalMinutes / 60);
-      let newMinutes = totalMinutes % 60;
+      let newHours = Math.floor(totalMinutes / this.minutesPerHour);
+      let newMinutes = totalMinutes % this.minutesPerHour;
 
       return String(newHours).padStart(2, '0') + String(newMinutes).padStart(2, '0');
     },

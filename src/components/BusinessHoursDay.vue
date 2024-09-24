@@ -143,11 +143,11 @@ export default {
     ToggleButton,
     FontAwesomeIcon
   },
-  // data() {
-  //   return {
-  //     isDisabled: false
-  //   };
-  // },
+  data() {
+    return {
+      isDisabled: false
+    };
+  },
   mixins: [helperMixin, validationMixin],
   props: {
     day: {
@@ -182,9 +182,6 @@ export default {
     },
     hourFormat24: {
       type: Boolean
-    },
-    isDisabled: {
-      type: Boolean
     }
   },
   computed: {
@@ -204,6 +201,18 @@ export default {
     visible: function(el, binding) {
       el.style.visibility = binding.value ? 'visible' : 'hidden';
     }
+  },
+  mounted() {
+    // this.runValidations();
+    console.log('ASD123')
+    this.hours.forEach((day, index) => {
+      console.log('AAAAA')
+        if (day.isOpen && day.open === '24hrs') {
+          console.log('BBBBB')
+           this.hours[index].close = ''
+           this.isDisabled = true
+        }
+    });
   },
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {

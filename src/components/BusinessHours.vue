@@ -3,7 +3,6 @@
     <business-hours-day
       v-for="(hours, day) in days"
       @hours-change="hoursChange"
-      :isDisabled="true"
       :key="day"
       :day="day"
       :hours="hours"
@@ -28,19 +27,9 @@ export default {
   data() {
     return {
       minutesPerHour: 60,
-      additionalHours: 9,
+      additionalHours: 9
     }
   },
-  // mounted() {
-  //   Object.values(this.days).forEach((day, index) => {
-  //     day.forEach((hour, i) => {
-  //       if (hour.isOpen && hour.open === '24hrs') {
-  //          Object.values(this.days)[index][i].close = ''
-  //          this.isDisabled = true
-  //       }
-  //     })
-  //   });
-  // },
   props: {
     days: {
       type: Object,
@@ -138,7 +127,6 @@ export default {
   methods: {
     hoursChange: function(val) {
       val = this.setTime(val)
-
       this.$emit('updated-hours', val);
     },
     calculateOpenTime(closeTime) {

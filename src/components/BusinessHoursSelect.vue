@@ -1,5 +1,6 @@
 <template>
-  <select :name="optionName"
+  <select ref="hoursSelect"
+          :name="optionName"
           :class="selectClass" 
           v-model="selected" 
           :disabled="isDisabled"
@@ -43,7 +44,7 @@ export default {
   mixins: [helperMixin, formFieldMixin],
   data () {
     return {
-      isPlaceholderVisible: true,
+      isPlaceholderVisible: true
     }
   },
   computed: {
@@ -58,6 +59,7 @@ export default {
   methods: {
     hidePlaceholder() {
       this.isPlaceholderVisible = false;
+      this.$refs.hoursSelect.blur();
     },
     showPlaceholder() {
       this.isPlaceholderVisible = true;

@@ -8,10 +8,11 @@
           @change="inputEventHandler" 
           @blur="showPlaceholder">
     <option value
+            disabled
             selected
-            class="placeholder-text"
             v-show="isFirstRow(index) && onlyOneRow(hours)"
             v-if="isPlaceholderVisible"
+            class="placeholder-text"
             >
       {{ defaultText}}
     </option>

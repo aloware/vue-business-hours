@@ -202,18 +202,20 @@ export default {
       el.style.visibility = binding.value ? 'visible' : 'hidden';
     }
   },
-  mounted() {
-    // this.runValidations();
+  mounted: function() {
+    this.isDisabled = true
+    
     this.hours.forEach((day, index) => {
         if (day.isOpen && day.open === '24hrs') {
            this.hours[index].close = ''
            this.isDisabled = true
         }
     });
+
+    this.runValidations();
   },
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {
-      console.log('ASDASDASD')
       value = this.backendInputFormat(value);
       this.isDisabled = false;
 

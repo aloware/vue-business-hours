@@ -206,6 +206,7 @@ export default {
     onChangeEventHandler: function(whichTime, index, value) {
       value = this.backendInputFormat(value);
       this.isDisabled = false;
+
       if (value == '24hrs') {
         this.hours.splice(1);
         this.hours[0].open = this.hours[0].close = value;

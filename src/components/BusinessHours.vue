@@ -126,7 +126,7 @@ export default {
   },
   methods: {
     hoursChange: function(val) {
-      val = this.setClosingTimeBasedOnOpening(val)
+      val = this.setTime(val)
 
       this.$emit('updated-hours', val);
     },
@@ -171,14 +171,10 @@ export default {
 
       return String(newHours).padStart(2, '0') + String(newMinutes).padStart(2, '0');
     },
-    setClosingTimeBasedOnOpening(val) {
+    setTime(val) {
       const key = Object.keys(val)[0];
 
       val[key].forEach((day, index) => {
-        if (val.open === '' && val.isOpen) {
-          val[key][index].close = '';
-        }
-
         if (day.isOpen && day.close !== '24hrs' && day.close !== '' && day.open === '') {
           val[key][index].open = this.calculateOpenTime(day.close);
         }
@@ -188,6 +184,10 @@ export default {
         }
 
         if(day.isOpen && day.open === '24hrs') {
+          val[key][index].close = '';
+        }
+
+        if (day.open === '' && day.isOpen) {
           val[key][index].close = '';
         }
       });

@@ -7,12 +7,11 @@
           @focus="hidePlaceholder" 
           @change="inputEventHandler" 
           @blur="showPlaceholder">
-    <option v-show="isFirstRow(index) && onlyOneRow(hours)" 
-            value 
-            disabled 
-            selected 
-            v-if="isPlaceholderVisible"
+    <option value
+            selected
             class="placeholder-text"
+            v-show="isFirstRow(index) && onlyOneRow(hours)"
+            v-if="isPlaceholderVisible"
             >
       {{ defaultText}}
     </option>

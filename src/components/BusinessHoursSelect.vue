@@ -2,6 +2,7 @@
   <select :name="optionName"
           :class="selectClass" 
           v-model="selected" 
+          :disabled="isDisabled"
           @focus="hidePlaceholder" 
           @change="inputEventHandler" 
           @blur="showPlaceholder">
@@ -14,7 +15,11 @@
             >
       {{ defaultText}}
     </option>
-    <option v-show="isFirstRow(index)" value="24hrs">{{
+    <option value="24hrs"
+            v-show="isFirstRow(index)"
+            v-if="is24hrsVisible"
+            >
+      {{
       localization.t24hours
     }}</option>
     <option
@@ -38,7 +43,7 @@ export default {
   mixins: [helperMixin, formFieldMixin],
   data () {
     return {
-      isPlaceholderVisible: true
+      isPlaceholderVisible: true,
     }
   },
   computed: {
@@ -58,6 +63,16 @@ export default {
       this.isPlaceholderVisible = true;
     },
   },
+  props: {
+    isDisabled: {
+      type: Boolean,
+      default: false
+    },
+    is24hrsVisible: {
+      type: Boolean,
+      default: true
+    },
+  }
 };
 </script>
 

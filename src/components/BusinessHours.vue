@@ -159,7 +159,7 @@ export default {
         parseInt(openTime.substring(2, 4), 10),
       ];
 
-      let totalMinutes = hours * this.minutesPerHour + minutes + (this.this.additionalHours * this.minutesPerHour);
+      let totalMinutes = hours * this.minutesPerHour + minutes + (this.additionalHours * this.minutesPerHour);
       const maxMinutes = maxHours * this.minutesPerHour + 30;
 
       if (totalMinutes > maxMinutes) {
@@ -182,8 +182,8 @@ export default {
         if (day.isOpen && day.close !== '24hrs' && day.close !== '' && day.open === '') {
           val[key][index].open = this.calculateOpenTime(day.close);
         }
-
-        if (day.isOpen && day.open !== '24hrs' && day.open !== '' && day.close === '') {
+        console.log('CLOSE TIME', day.close)
+        if (day.isOpen && day.open !== '24hrs' && day.open !== '' && (day.close === '' || day.close === '24hrs')) {
           val[key][index].close = this.calculateCloseTime(day.open);
         }
       });

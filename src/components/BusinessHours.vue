@@ -160,7 +160,7 @@ export default {
       ];
 
       let totalMinutes = hours * this.minutesPerHour + minutes + (this.additionalHours * this.minutesPerHour);
-      const maxMinutes = maxHours * this.minutesPerHour + 30;
+      const maxMinutes = maxHours * this.minutesPerHour + 60;
 
       if (totalMinutes > maxMinutes) {
         totalMinutes = maxMinutes;
@@ -182,7 +182,7 @@ export default {
         if (day.isOpen && day.close !== '24hrs' && day.close !== '' && day.open === '') {
           val[key][index].open = this.calculateOpenTime(day.close);
         }
-        console.log('CLOSE TIME', day.close)
+
         if (day.isOpen && day.open !== '24hrs' && day.open !== '' && (day.close === '' || day.close === '24hrs')) {
           val[key][index].close = this.calculateCloseTime(day.open);
         }

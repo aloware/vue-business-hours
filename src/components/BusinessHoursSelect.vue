@@ -1,7 +1,6 @@
 <template>
   <select ref="hoursSelect"
           :name="optionName"
-          :class="selectClass" 
           v-model="selected" 
           :disabled="isDisabled"
           @focus="hidePlaceholder" 
@@ -45,15 +44,6 @@ export default {
   data () {
     return {
       isPlaceholderVisible: true
-    }
-  },
-  computed: {
-    selectClass() {
-      if (this.selected === "" || this.selected === "") {
-        return "placeholder-text"; // Apply custom class
-      } else {
-        return "";
-      }
     }
   },
   methods: {

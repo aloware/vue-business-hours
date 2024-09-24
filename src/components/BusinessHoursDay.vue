@@ -193,6 +193,7 @@ export default {
     },
     isDisabled: {
       get: function () {
+        alert(1)
         return this.hours[0].isOpen &&  this.hours[0].open === '24hrs'
       },
       set: function (newValue) {

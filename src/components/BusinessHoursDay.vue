@@ -65,7 +65,7 @@
           <div class="flex-row hours close" role="cell" v-visible="isOpenToday">
             <BusinessHoursSelect
               v-if="type === 'select'"
-              :isDisabled="true"
+              :isDisabled="isDisabled"
               :is24hrsVisible="false"
               :name="name"
               :input-num="inputNum('close', index)"
@@ -203,12 +203,14 @@ export default {
     }
   },
   mounted() {
-    // this.hours.forEach((day, index) => {
-    //     if (day.isOpen && day.open === '24hrs') {
-    //        this.hours[index].close = ''
-    //     }
-    // });
     this.runValidations();
+    
+    this.hours.forEach((day, index) => {
+        if (day.isOpen && day.open === '24hrs') {
+           this.hours[index].close = ''
+           this.isDisabled
+        }
+    });
   },
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {

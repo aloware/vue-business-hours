@@ -143,6 +143,11 @@ export default {
     ToggleButton,
     FontAwesomeIcon
   },
+  data() {
+    return {
+      isDisabled: false
+    };
+  },
   mixins: [helperMixin, validationMixin],
   props: {
     day: {
@@ -190,23 +195,22 @@ export default {
       return this.hours.some(hour => {
         return hour.isOpen === true;
       });
-    },
-    isDisabled: {
-      get: function () {
-        alert(1)
-        return this.hours[0].isOpen &&  this.hours[0].open === '24hrs'
-      },
-      set: function (newValue) {
-          // var names = newValue.split(' ')
-          // this.firstName = names[0]
-          // this.lastName = names[names.length - 1]
-      }
     }
   },
   directives: {
     visible: function(el, binding) {
       el.style.visibility = binding.value ? 'visible' : 'hidden';
     }
+  },
+  mounted: function() {
+    this.hours.forEach((day, index) => {
+        if (day.isOpen && day.open === '24hrs') {
+           this.hours[index].close = ''
+           this.isDisabled = true
+        }
+    });
+
+    this.runValidations();
   },
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {

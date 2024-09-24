@@ -186,6 +186,10 @@ export default {
         if (day.isOpen && day.open !== '24hrs' && day.open !== '' && (day.close === '' || day.close === '24hrs')) {
           val[key][index].close = this.calculateCloseTime(day.open);
         }
+
+        if(day.isOpen && day.open === '24hrs') {
+          val[key][index].close = '';
+        }
       });
 
       return val;

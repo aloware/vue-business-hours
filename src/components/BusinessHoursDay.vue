@@ -204,6 +204,7 @@ export default {
   },
   mounted() {
     this.hours.forEach((day, index) => {
+        console.log('disabled log')
         if (day.isOpen && day.open === '24hrs') {
            this.hours[index].close = ''
            this.isDisabled = true

@@ -204,11 +204,8 @@ export default {
   },
   mounted() {
     // this.runValidations();
-    console.log('ASD123')
     this.hours.forEach((day, index) => {
-      console.log('AAAAA')
         if (day.isOpen && day.open === '24hrs') {
-          console.log('BBBBB')
            this.hours[index].close = ''
            this.isDisabled = true
         }
@@ -216,6 +213,7 @@ export default {
   },
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {
+      console.log('ASDASDASD')
       value = this.backendInputFormat(value);
       this.isDisabled = false;
 

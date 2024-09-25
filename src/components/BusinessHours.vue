@@ -24,6 +24,12 @@ export default {
   components: {
     BusinessHoursDay
   },
+  data() {
+    return {
+      minutesPerHour: 60,
+      additionalHours: 9
+    }
+  },
   props: {
     days: {
       type: Object,
@@ -59,8 +65,8 @@ export default {
       default: () => ({
         switchOpen: 'Open',
         switchClosed: 'Closed',
-        placeholderOpens: 'Opens',
-        placeholderCloses: 'Closes',
+        placeholderOpens: 'Open',
+        placeholderCloses: 'Closed',
         addHours: 'Add hours',
         open: {
           invalidInput:
@@ -120,8 +126,73 @@ export default {
   },
   methods: {
     hoursChange: function(val) {
+      val = this.setTime(val)
       this.$emit('updated-hours', val);
-    }
+    },
+    calculateOpenTime(closeTime) {
+      const minHours = 0; // 12:00 AM is represented as 0 hours
+      const [hours, minutes] = [
+        parseInt(closeTime.substring(0, 2), 10),
+        parseInt(closeTime.substring(2, 4), 10),
+      ];
+
+      // Calculate the total minutes of the closing time
+      let totalMinutes = hours * this.minutesPerHour + minutes - (this.additionalHours * this.minutesPerHour);
+
+      // If the calculated open time is earlier than 12:00 AM, set it to 12:00 AM
+      if (totalMinutes < minHours * this.minutesPerHour) {
+        totalMinutes = minHours * this.minutesPerHour;
+      }
+
+      // Calculate the new hours and minutes for the open time
+      let newHours = Math.floor(totalMinutes / this.minutesPerHour);
+      let newMinutes = totalMinutes % this.minutesPerHour;
+
+      // Format the new open time as a string with padded zeros
+      return String(newHours).padStart(2, '0') + String(newMinutes).padStart(2, '0');
+    },
+    calculateCloseTime(openTime) {
+      const maxHours = 23;
+      const [hours, minutes] = [
+        parseInt(openTime.substring(0, 2), 10),
+        parseInt(openTime.substring(2, 4), 10),
+      ];
+
+      let totalMinutes = hours * this.minutesPerHour + minutes + (this.additionalHours * this.minutesPerHour);
+      const maxMinutes = maxHours * this.minutesPerHour + 60;
+
+      if (totalMinutes > maxMinutes) {
+        totalMinutes = maxMinutes;
+      }
+
+      let newHours = Math.floor(totalMinutes / this.minutesPerHour);
+      let newMinutes = totalMinutes % this.minutesPerHour;
+
+      return String(newHours).padStart(2, '0') + String(newMinutes).padStart(2, '0');
+    },
+    setTime(val) {
+      const key = Object.keys(val)[0];
+
+      val[key].forEach((day, index) => {
+        if (day.isOpen && day.close !== '24hrs' && day.close !== '' && day.open === '') {
+          val[key][index].open = this.calculateOpenTime(day.close);
+        }
+
+        if (day.isOpen && day.open !== '24hrs' && day.open !== '' && (day.close === '' || day.close === '24hrs')) {
+          val[key][index].close = this.calculateCloseTime(day.open);
+        }
+
+        if(day.isOpen && day.open === '24hrs') {
+          val[key][index].close = '';
+        }
+
+        if (day.open === '' && day.isOpen) {
+          val[key][index].close = '';
+        }
+      });
+
+      return val;
+    },
   }
 };
 </script>

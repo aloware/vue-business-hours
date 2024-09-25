@@ -1,9 +1,25 @@
 <template>
-  <select :name="optionName" @change="inputEventHandler" v-model="selected">
-    <option v-show="isFirstRow(index) && onlyOneRow(hours)" value>{{
-      defaultText
-    }}</option>
-    <option v-show="isFirstRow(index)" value="24hrs">{{
+  <select ref="hoursSelect"
+          :name="optionName"
+          v-model="selected" 
+          :disabled="isDisabled"
+          @focus="hidePlaceholder" 
+          @change="inputEventHandler" 
+          @blur="showPlaceholder">
+    <option value
+            disabled
+            selected
+            v-show="isFirstRow(index) && onlyOneRow(hours)"
+            v-if="isPlaceholderVisible"
+            class="placeholder-text"
+            >
+      {{ defaultText}}
+    </option>
+    <option value="24hrs"
+            v-show="isFirstRow(index)"
+            v-if="is24hrsVisible"
+            >
+      {{
       localization.t24hours
     }}</option>
     <option
@@ -24,6 +40,38 @@ import { helperMixin } from '../mixins/helperMixin';
 import { formFieldMixin } from '../mixins/formFieldMixin';
 export default {
   name: 'BusinessHoursSelect',
-  mixins: [helperMixin, formFieldMixin]
+  mixins: [helperMixin, formFieldMixin],
+  props: {
+    isDisabled: {
+      type: Boolean,
+      default: false
+    },
+    is24hrsVisible: {
+      type: Boolean,
+      default: true
+    },
+  },
+  data () {
+    return {
+      isPlaceholderVisible: true
+    }
+  },
+  methods: {
+    hidePlaceholder() {
+      this.isPlaceholderVisible = false;
+      this.$refs.hoursSelect.blur();
+    },
+    showPlaceholder() {
+      this.isPlaceholderVisible = true;
+    },
+  }
 };
 </script>
+
+<style scoped>
+
+.placeholder-text {
+  color: #878686; 
+}
+
+</style>

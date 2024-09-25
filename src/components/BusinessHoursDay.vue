@@ -65,6 +65,8 @@
           <div class="flex-row hours close" role="cell" v-visible="isOpenToday">
             <BusinessHoursSelect
               v-if="type === 'select'"
+              :isDisabled="isDisabled"
+              :is24hrsVisible="false"
               :name="name"
               :input-num="inputNum('close', index)"
               :total-inputs="totalInputs"
@@ -141,6 +143,11 @@ export default {
     ToggleButton,
     FontAwesomeIcon
   },
+  data() {
+    return {
+      isDisabled: false
+    };
+  },
   mixins: [helperMixin, validationMixin],
   props: {
     day: {
@@ -195,15 +202,30 @@ export default {
       el.style.visibility = binding.value ? 'visible' : 'hidden';
     }
   },
+  mounted: function() {
+    this.hours.forEach((day, index) => {
+        if (day.isOpen && day.open === '24hrs') {
+           this.hours[index].close = ''
+           this.isDisabled = true
+        }
+    });
+
+    this.runValidations();
+  },
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {
       value = this.backendInputFormat(value);
+      this.isDisabled = false;
 
       if (value == '24hrs') {
         this.hours.splice(1);
         this.hours[0].open = this.hours[0].close = value;
         this.runValidations();
         this.updateHours();
+
+        if(this.hours[index].open === '24hrs' && this.hours[index].close === ''){
+          this.isDisabled = true;
+        }
         return;
       }
 

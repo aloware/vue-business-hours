@@ -41,6 +41,16 @@ import { formFieldMixin } from '../mixins/formFieldMixin';
 export default {
   name: 'BusinessHoursSelect',
   mixins: [helperMixin, formFieldMixin],
+  props: {
+    isDisabled: {
+      type: Boolean,
+      default: false
+    },
+    is24hrsVisible: {
+      type: Boolean,
+      default: true
+    },
+  },
   data () {
     return {
       isPlaceholderVisible: true
@@ -53,16 +63,6 @@ export default {
     },
     showPlaceholder() {
       this.isPlaceholderVisible = true;
-    },
-  },
-  props: {
-    isDisabled: {
-      type: Boolean,
-      default: false
-    },
-    is24hrsVisible: {
-      type: Boolean,
-      default: true
     },
   }
 };

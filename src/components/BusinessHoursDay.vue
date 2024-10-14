@@ -301,8 +301,8 @@ export default {
         : false;
     },
     updateHours: function() {
-      const updatedHours = { [this.day]: hours || this.hours };
-      console.log('updated hours: ',hours)
+      const updatedHours = { [this.day]: this.hours };
+      console.log('updated hours: ',this.hours)
       this.$emit('hours-change', updatedHours);
     }
   }

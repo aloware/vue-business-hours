@@ -200,7 +200,7 @@ export default {
     onChangeEventHandler: function(whichTime, index, value) {
       value = this.backendInputFormat(value);
       let hoursChanged = JSON.parse(JSON.stringify(this.hours));
-      console.log(this.hoursChanged)
+      console.log(hoursChanged)
 
       if (value == '24hrs') {
         this.hours.splice(1);
@@ -234,7 +234,8 @@ export default {
       }
 
       if(whichTime === 'close'){
-        hoursChanged[index][whichTime] = value
+        console.log(hoursChanged,index,whichTime,String(value))
+        hoursChanged[index][whichTime] = String(value)
       }else{
         hoursChanged = null
       }

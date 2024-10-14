@@ -240,7 +240,7 @@ export default {
       this.hours[index][whichTime] = value;
       console.log(this.hoursChanged,index,whichTime,String(value))
       this.runValidations();
-      this.updateHours();
+      this.updateHours(this.hoursChanged);
     },
     inputNum: function(whichTime, index) {
       if (whichTime === 'open') {

@@ -204,6 +204,7 @@ export default {
     onChangeEventHandler: function(whichTime, index, value) {
       value = this.backendInputFormat(value);
       this.hoursChanged = JSON.parse(JSON.stringify(this.hours));
+      console.log(this.hoursChanged)
 
       if (value == '24hrs') {
         this.hours.splice(1);
@@ -236,6 +237,7 @@ export default {
         return;
       }
 
+      console.log(value)
       this.hoursChanged[index][whichTime] = value;
       this.hours[index][whichTime] = value;
       console.log(this.hoursChanged,index,whichTime,String(value))
@@ -306,7 +308,7 @@ export default {
     },
     updateHours: function(hours = null) {
       const updatedHours = { [this.day]: hours || this.hours };
-      console.log('updated hours: ',updatedHours)
+      console.log('updated hours: ',hours)
       this.$emit('hours-change', updatedHours);
     }
   }

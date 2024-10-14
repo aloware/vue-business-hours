@@ -233,15 +233,10 @@ export default {
         return;
       }
 
-      if(whichTime === 'close'){
-        Vue.set(hoursChanged[index], 'whichTime', String(value))
-        console.log(hoursChanged,index,whichTime,String(value))
-      }else{
-        hoursChanged = null
-      }
-
       this.hours[index][whichTime] = value;
+      console.log(this.hours)
       this.runValidations();
+      console.log(this.hours)
       this.updateHours(hoursChanged);
     },
     inputNum: function(whichTime, index) {

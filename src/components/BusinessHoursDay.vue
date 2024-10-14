@@ -234,7 +234,7 @@ export default {
       }
 
       if(whichTime === 'close'){
-        hoursChanged[index][whichTime] = value + ""
+        hoursChanged[index].set(whichTime,String(value))
         console.log(hoursChanged,index,whichTime,String(value))
       }else{
         hoursChanged = null

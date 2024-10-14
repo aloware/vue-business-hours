@@ -177,11 +177,7 @@ export default {
       type: Boolean
     }
   },
-  data () {
-    return {
-      hoursChanged: null
-    }
-  },
+
   computed: {
     totalInputs: function() {
       return this.hours.length * 2;
@@ -203,7 +199,7 @@ export default {
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {
       value = this.backendInputFormat(value);
-      this.hoursChanged = JSON.parse(JSON.stringify(this.hours));
+      let hoursChanged = JSON.parse(JSON.stringify(this.hours));
       console.log(this.hoursChanged)
 
       if (value == '24hrs') {
@@ -237,12 +233,16 @@ export default {
         return;
       }
 
-      console.log(value)
-      this.hoursChanged[index][whichTime] = value;
+      if(whichTime === 'close'){
+        hoursChanged[index][whichTime] = value
+      }else{
+        hoursChanged = null
+      }
+
       this.hours[index][whichTime] = value;
-      console.log(this.hoursChanged,index,whichTime,String(value))
+      console.log(hoursChanged,index,whichTime,String(value))
       this.runValidations();
-      this.updateHours(this.hoursChanged);
+      this.updateHours(hoursChanged);
     },
     inputNum: function(whichTime, index) {
       if (whichTime === 'open') {

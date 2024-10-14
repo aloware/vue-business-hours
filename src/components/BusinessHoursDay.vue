@@ -234,8 +234,9 @@ export default {
 
       console.log(this.hours)
       this.hours[index][whichTime] = value;
+      console.log(this.hours)
       this.runValidations();
-      this.updateHours(hoursChanged);
+      this.updateHours();
     },
     inputNum: function(whichTime, index) {
       if (whichTime === 'open') {
@@ -299,7 +300,7 @@ export default {
         ? true
         : false;
     },
-    updateHours: function(hours = null) {
+    updateHours: function() {
       const updatedHours = { [this.day]: hours || this.hours };
       console.log('updated hours: ',hours)
       this.$emit('hours-change', updatedHours);

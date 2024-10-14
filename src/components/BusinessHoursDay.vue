@@ -231,8 +231,8 @@ export default {
         return;
       }
 
-      this.hours[index][whichTime] = value;
-      console.log(this.hours,index,whichTime)
+      this.hours[index][whichTime] = String(value);
+      console.log(this.hours,index,whichTime,String(value))
       this.runValidations();
       console.log(this.hours,index,whichTime)
       this.updateHours();

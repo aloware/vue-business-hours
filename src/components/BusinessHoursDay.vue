@@ -177,6 +177,11 @@ export default {
       type: Boolean
     }
   },
+  data () {
+    return {
+      hoursChanged: null
+    }
+  },
   computed: {
     totalInputs: function() {
       return this.hours.length * 2;
@@ -199,31 +204,32 @@ export default {
     onChangeEventHandler: function(whichTime, index, value) {
       console.log('value handler: ',value)
       value = this.backendInputFormat(value);
+      this.hoursChanged = JSON.parse(JSON.stringify(this.hours))
 
       if (value == '24hrs') {
-        this.hours.splice(1);
-        this.hours[0].open = this.hours[0].close = value;
+        this.hoursChanged.splice(1);
+        this.hoursChanged[0].open = this.hoursChanged[0].close = value;
         this.runValidations();
         this.updateHours();
         return;
       }
 
       if (
-        (this.hours[index].open == '24hrs' ||
-          this.hours[index].close == '24hrs') &&
+        (this.hoursChanged[index].open == '24hrs' ||
+          this.hoursChanged[index].close == '24hrs') &&
         value == ''
       ) {
-        this.hours[index].open = this.hours[index].close = value;
+        this.hoursChanged[index].open = this.hoursChanged[index].close = value;
         this.runValidations();
         this.updateHours();
         return;
       }
 
       if (
-        !this.onlyOneRow(this.hours) &&
+        !this.onlyOneRow(this.hoursChanged) &&
         value === '' &&
-        ((whichTime === 'open' && this.hours[index].close === '') ||
-          (whichTime === 'close' && this.hours[index].open === ''))
+        ((whichTime === 'open' && this.hoursChanged[index].close === '') ||
+          (whichTime === 'close' && this.hoursChanged[index].open === ''))
       ) {
         this.removeRow(index);
         this.runValidations();
@@ -231,10 +237,10 @@ export default {
         return;
       }
 
-      this.hours[index][whichTime] = String(value);
-      console.log(this.hours,index,whichTime,String(value))
+      this.hoursChanged[index][whichTime] = String(value);
+      console.log(this.hoursChanged,index,whichTime,String(value))
       this.runValidations();
-      console.log(this.hours,index,whichTime)
+      console.log(this.hoursChanged,index,whichTime)
       this.updateHours();
     },
     inputNum: function(whichTime, index) {
@@ -300,9 +306,15 @@ export default {
         : false;
     },
     updateHours: function() {
-      console.log(this.hours)
-      const updatedHours = { [this.day]: this.hours };
+      console.log(this.hoursChanged)
+      const updatedHours = { [this.day]: this.hoursChanged };
       this.$emit('hours-change', updatedHours);
+    }
+  },
+
+  watch: {
+    hours: function () {
+      this.runValidations();
     }
   }
 };

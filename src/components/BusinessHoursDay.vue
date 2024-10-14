@@ -198,8 +198,9 @@ export default {
   },
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {
+      console.log('on change ',this.hours)
       value = this.backendInputFormat(value);
-      console.log(this.hours)
+      console.log('after backend format ',this.hours)
 
       if (value == '24hrs') {
         this.hours.splice(1);
@@ -232,9 +233,9 @@ export default {
         return;
       }
 
-      console.log(this.hours)
+      console.log('before set ',this.hours)
       this.hours[index][whichTime] = value;
-      console.log(this.hours)
+      console.log('after set ',this.hours)
       this.runValidations();
       this.updateHours();
     },

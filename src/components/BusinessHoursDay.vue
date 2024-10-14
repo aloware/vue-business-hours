@@ -202,7 +202,6 @@ export default {
   },
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {
-      console.log('value handler: ',value)
       value = this.backendInputFormat(value);
       this.hoursChanged = JSON.parse(JSON.stringify(this.hours));
 
@@ -237,7 +236,8 @@ export default {
         return;
       }
 
-      this.hoursChanged[index][whichTime] = String(value);
+      this.hoursChanged[index][whichTime] = value;
+      this.hours[index][whichTime] = value;
       console.log(this.hoursChanged,index,whichTime,String(value))
       this.runValidations();
       this.updateHours();
@@ -304,16 +304,10 @@ export default {
         ? true
         : false;
     },
-    updateHours: function() {
-      console.log(this.hoursChanged)
-      const updatedHours = { [this.day]: this.hoursChanged };
+    updateHours: function(hours = null) {
+      const updatedHours = { [this.day]: hours || this.hours };
+      console.log('updated hours: ',updatedHours)
       this.$emit('hours-change', updatedHours);
-    }
-  },
-
-  watch: {
-    hours: function () {
-      this.runValidations();
     }
   }
 };

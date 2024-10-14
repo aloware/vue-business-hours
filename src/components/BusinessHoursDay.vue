@@ -234,14 +234,13 @@ export default {
       }
 
       if(whichTime === 'close'){
+        hoursChanged[index][whichTime] = value + ""
         console.log(hoursChanged,index,whichTime,String(value))
-        hoursChanged[index][whichTime] = String(value)
       }else{
         hoursChanged = null
       }
 
       this.hours[index][whichTime] = value;
-      console.log(hoursChanged,index,whichTime,String(value))
       this.runValidations();
       this.updateHours(hoursChanged);
     },

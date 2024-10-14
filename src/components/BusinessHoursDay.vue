@@ -199,8 +199,7 @@ export default {
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {
       value = this.backendInputFormat(value);
-      let hoursChanged = JSON.parse(JSON.stringify(this.hours));
-      console.log(hoursChanged)
+      console.log(this.hours)
 
       if (value == '24hrs') {
         this.hours.splice(1);
@@ -233,10 +232,9 @@ export default {
         return;
       }
 
+      console.log(this.hours)
       this.hours[index][whichTime] = value;
-      console.log(this.hours)
       this.runValidations();
-      console.log(this.hours)
       this.updateHours(hoursChanged);
     },
     inputNum: function(whichTime, index) {

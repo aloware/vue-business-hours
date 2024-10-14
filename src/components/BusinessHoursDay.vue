@@ -62,7 +62,7 @@
           <div class="flex-row dash" role="cell" v-visible="isOpenToday">-</div>
         </transition>
         <transition name="fade">
-          <div class="flex-row hours close" role="cell" v-visible="isOpenToday">
+          <div class="flex-row hours" role="cell" v-visible="isOpenToday">
             <BusinessHoursSelect
               v-if="type === 'select'"
               :name="name"
@@ -197,7 +197,7 @@ export default {
   },
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {
-      console.log('value: ',value)
+      console.log('value handler: ',value)
       value = this.backendInputFormat(value);
 
       if (value == '24hrs') {

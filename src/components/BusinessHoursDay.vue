@@ -234,7 +234,7 @@ export default {
       }
 
       if(whichTime === 'close'){
-        hoursChanged[index].set(whichTime,String(value))
+        Vue.set(hoursChanged[index], 'whichTime', String(value))
         console.log(hoursChanged,index,whichTime,String(value))
       }else{
         hoursChanged = null

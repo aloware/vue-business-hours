@@ -120,6 +120,7 @@ export default {
   },
   methods: {
     hoursChange: function(val) {
+      console.log('hours change: ',val)
       this.$emit('updated-hours', val);
     }
   }

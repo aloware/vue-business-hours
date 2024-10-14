@@ -115,6 +115,7 @@ export const formFieldMixin = {
   },
   methods: {
     inputEventHandler: function(e) {
+      console.log('change: ',e.target.value)
       this.$emit('input-change', e.target.value);
     },
     generateTimes: function(timeIncrement) {

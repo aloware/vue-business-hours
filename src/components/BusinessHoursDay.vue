@@ -197,6 +197,7 @@ export default {
   },
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {
+      console.log('value: ',value)
       value = this.backendInputFormat(value);
 
       if (value == '24hrs') {

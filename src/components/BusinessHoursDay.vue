@@ -64,7 +64,7 @@
         <transition name="fade">
           <div class="flex-row hours" role="cell" v-visible="isOpenToday">
             <BusinessHoursSelect
-              :class = "{'close': checkOpenHours(index)}"
+              :class="{'close': checkOpenHours(index)}"
               :isDisabled="checkOpenHours(index)"
               :name="name"
               :input-num="inputNum('close', index)"

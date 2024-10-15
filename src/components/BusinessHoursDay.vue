@@ -241,6 +241,11 @@ export default {
         return;
       }
 
+      //If change the opening hours, it is necessary to send the empty closing to add the default 9 hours
+      if(whichTime === 'open'){
+        this.hours[index]['close'] = ''
+      }
+
       this.hours[index][whichTime] = value;
       this.runValidations();
       this.updateHours();

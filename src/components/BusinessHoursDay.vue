@@ -64,9 +64,8 @@
         <transition name="fade">
           <div class="flex-row hours" role="cell" v-visible="isOpenToday">
             <BusinessHoursSelect
-              :class = "{'close': hours[index]['open'] === '24hrs' || hours[index]['open'] === ''}"
-              v-if="type === 'select'"
-              :isDisabled="hours[index]['open']=== '24hrs' || hours[index]['open'] === ''"
+              :class = "{'close': checkOpenHours(index)}"
+              :isDisabled="checkOpenHours(index)"
               :name="name"
               :input-num="inputNum('close', index)"
               :total-inputs="totalInputs"
@@ -77,6 +76,7 @@
               :selected-time="close"
               :localization="localization"
               :hour-format24="hourFormat24"
+              v-if="type === 'select'"
               @input-change="onChangeEventHandler('close', index, $event)"
             ></BusinessHoursSelect>
             <BusinessHoursDatalist
@@ -179,11 +179,6 @@ export default {
       type: Boolean
     }
   },
-  data () {
-    return {
-      isDisabled: false
-    };
-  },
   computed: {
     totalInputs: function() {
       return this.hours.length * 2;
@@ -213,7 +208,6 @@ export default {
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {
       value = this.backendInputFormat(value);
-      this.isDisabled = false;
 
       if (value == '24hrs') {
         this.hours.splice(1);
@@ -221,9 +215,6 @@ export default {
         this.runValidations();
         this.updateHours();
 
-        if(this.hours[index].open === '24hrs' && this.hours[index].close === ''){
-          this.isDisabled = true;
-        }
         return;
       }
 
@@ -250,9 +241,7 @@ export default {
         return;
       }
 
-
       this.hours[index][whichTime] = value;
-
       this.runValidations();
       this.updateHours();
     },
@@ -321,6 +310,9 @@ export default {
     updateHours: function() {
       const updatedHours = { [this.day]: this.hours };
       this.$emit('hours-change', updatedHours);
+    },
+    checkOpenHours: function (index) {
+      return !this.hours[index]['open'] || this.hours[index]['open'] === '24hrs'
     }
   }
 };
@@ -359,6 +351,10 @@ export default {
 
 .flex-row.hours {
   width: 110px;
+}
+
+div.hours::after{
+  pointer-events: none;
 }
 
 .flex-row.dash {

@@ -76,7 +76,6 @@ export const formFieldMixin = {
       );
     },
     filteredTimes: function() {
-      console.log('filtered Times')
       let prevTime = this.getPrevious(this.hours, this.index, this.inputNum),
         nextTime = this.getNext(
           this.hours,
@@ -92,15 +91,11 @@ export const formFieldMixin = {
 
       if (this.isFirstInput(this.inputNum)) {
         filteredTimes = this.getFiltered('before', nextTime, filteredTimes);
-        console.log('is first input ',filteredTimes)
       } else if (this.isLastInput(this.inputNum, this.totalInputs)) {
         filteredTimes = this.getFiltered('after', prevTime, filteredTimes);
-        console.log('is last input ',filteredTimes)
       } else {
         filteredTimes = this.getFiltered('before', nextTime, filteredTimes);
         filteredTimes = this.getFiltered('after', prevTime, filteredTimes);
-
-        console.log('filtered times ', filteredTimes)
       }
 
       return filteredTimes;

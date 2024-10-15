@@ -62,9 +62,11 @@
           <div class="flex-row dash" role="cell" v-visible="isOpenToday">-</div>
         </transition>
         <transition name="fade">
-          <div :class="['flex-row', 'hours', { close: hours[index]['open'] === '24hrs' }]" role="cell" v-visible="isOpenToday">
+          <div class="flex-row hours" role="cell" v-visible="isOpenToday">
             <BusinessHoursSelect
+              :class = "{'close': hours[index]['open'] === '24hrs' || hours[index]['open'] === ''}"
               v-if="type === 'select'"
+              :isDisabled="hours[index]['open']=== '24hrs' || hours[index]['open'] === ''"
               :name="name"
               :input-num="inputNum('close', index)"
               :total-inputs="totalInputs"
@@ -177,7 +179,11 @@ export default {
       type: Boolean
     }
   },
-
+  data () {
+    return {
+      isDisabled: false
+    };
+  },
   computed: {
     totalInputs: function() {
       return this.hours.length * 2;
@@ -196,17 +202,28 @@ export default {
       el.style.visibility = binding.value ? 'visible' : 'hidden';
     }
   },
+  mounted: function() {
+    this.hours.forEach((day, index) => {
+      if (day.isOpen && day.open === '24hrs') {
+        this.hours[index].close = ''
+      }
+    });
+    this.runValidations();
+  },
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {
-      console.log('on change ',this.hours)
       value = this.backendInputFormat(value);
-      console.log('after backend format ',this.hours)
+      this.isDisabled = false;
 
       if (value == '24hrs') {
         this.hours.splice(1);
         this.hours[0].open = this.hours[0].close = value;
         this.runValidations();
         this.updateHours();
+
+        if(this.hours[index].open === '24hrs' && this.hours[index].close === ''){
+          this.isDisabled = true;
+        }
         return;
       }
 
@@ -233,9 +250,9 @@ export default {
         return;
       }
 
-      console.log('before set ',this.hours)
+
       this.hours[index][whichTime] = value;
-      console.log('after set ',this.hours)
+
       this.runValidations();
       this.updateHours();
     },
@@ -303,7 +320,6 @@ export default {
     },
     updateHours: function() {
       const updatedHours = { [this.day]: this.hours };
-      console.log('updated hours: ',this.hours)
       this.$emit('hours-change', updatedHours);
     }
   }

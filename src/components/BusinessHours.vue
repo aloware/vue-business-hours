@@ -59,8 +59,8 @@ export default {
       default: () => ({
         switchOpen: 'Open',
         switchClosed: 'Closed',
-        placeholderOpens: 'Opens',
-        placeholderCloses: 'Closes',
+        placeholderOpens: 'Open',
+        placeholderCloses: 'Closed',
         addHours: 'Add hours',
         open: {
           invalidInput:
@@ -120,7 +120,6 @@ export default {
   },
   methods: {
     hoursChange: function(val) {
-      console.log('hours change: ',val)
       this.$emit('updated-hours', val);
     }
   }

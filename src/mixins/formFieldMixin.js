@@ -109,6 +109,7 @@ export const formFieldMixin = {
       return (
         this.isLastRow(this.index, this.hours) &&
         this.whichTime === 'close' &&
+        this.hours[this.index].open !== '24hrs' &&
         this.hours[this.index].close !== '24hrs'
       );
     }
@@ -120,7 +121,6 @@ export const formFieldMixin = {
   },
   methods: {
     inputEventHandler: function(e) {
-      console.log('change: ',e.target.value, this.hours)
       this.$emit('input-change', e.target.value);
     },
     generateTimes: function(timeIncrement) {

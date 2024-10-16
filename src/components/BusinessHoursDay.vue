@@ -197,7 +197,7 @@ export default {
       el.style.visibility = binding.value ? 'visible' : 'hidden';
     }
   },
-  mounted: function() {
+  mounted: function () {
     this.hours.forEach((day, index) => {
       if (day.isOpen && day.open === '24hrs') {
         this.hours[index].close = ''
@@ -242,7 +242,7 @@ export default {
       }
 
       //If change the opening hours, it is necessary to send the empty closing to add the default 9 hours
-      if(whichTime === 'open'){
+      if (whichTime === 'open') {
         this.hours[index]['close'] = ''
       }
 

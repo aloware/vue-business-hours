@@ -104,6 +104,7 @@ export const formFieldMixin = {
       return (
         this.isLastRow(this.index, this.hours) &&
         this.whichTime === 'close' &&
+        this.hours[this.index].open !== '24hrs' &&
         this.hours[this.index].close !== '24hrs'
       );
     }

@@ -59,8 +59,8 @@ export default {
       default: () => ({
         switchOpen: 'Open',
         switchClosed: 'Closed',
-        placeholderOpens: 'Opens',
-        placeholderCloses: 'Closes',
+        placeholderOpens: 'Open',
+        placeholderCloses: 'Closed',
         addHours: 'Add hours',
         open: {
           invalidInput:

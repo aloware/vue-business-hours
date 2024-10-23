@@ -62,9 +62,10 @@
           <div class="flex-row dash" role="cell" v-visible="isOpenToday">-</div>
         </transition>
         <transition name="fade">
-          <div class="flex-row hours close" role="cell" v-visible="isOpenToday">
+          <div class="flex-row hours" role="cell" v-visible="isOpenToday">
             <BusinessHoursSelect
-              v-if="type === 'select'"
+              :class="{'close': checkOpenHours(index)}"
+              :isDisabled="checkOpenHours(index)"
               :name="name"
               :input-num="inputNum('close', index)"
               :total-inputs="totalInputs"
@@ -75,6 +76,7 @@
               :selected-time="close"
               :localization="localization"
               :hour-format24="hourFormat24"
+              v-if="type === 'select'"
               @input-change="onChangeEventHandler('close', index, $event)"
             ></BusinessHoursSelect>
             <BusinessHoursDatalist
@@ -195,6 +197,14 @@ export default {
       el.style.visibility = binding.value ? 'visible' : 'hidden';
     }
   },
+  mounted: function () {
+    this.hours.forEach((day, index) => {
+      if (day.isOpen && day.open === '24hrs') {
+        this.hours[index].close = ''
+      }
+    });
+    this.runValidations();
+  },
   methods: {
     onChangeEventHandler: function(whichTime, index, value) {
       value = this.backendInputFormat(value);
@@ -204,6 +214,7 @@ export default {
         this.hours[0].open = this.hours[0].close = value;
         this.runValidations();
         this.updateHours();
+
         return;
       }
 
@@ -228,6 +239,11 @@ export default {
         this.runValidations();
         this.updateHours();
         return;
+      }
+
+      //If change the opening hours, it is necessary to send the empty closing to add the default 9 hours
+      if (whichTime === 'open') {
+        this.hours[index]['close'] = ''
       }
 
       this.hours[index][whichTime] = value;
@@ -299,6 +315,9 @@ export default {
     updateHours: function() {
       const updatedHours = { [this.day]: this.hours };
       this.$emit('hours-change', updatedHours);
+    },
+    checkOpenHours: function (index) {
+      return !this.hours[index]['open'] || this.hours[index]['open'] === '24hrs'
     }
   }
 };
@@ -337,6 +356,10 @@ export default {
 
 .flex-row.hours {
   width: 110px;
+}
+
+div.hours::after{
+  pointer-events: none;
 }
 
 .flex-row.dash {

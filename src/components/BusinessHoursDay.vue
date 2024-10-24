@@ -104,7 +104,7 @@
             v-if="showRemoveButton()"
             @click="removeRow(index)"
           >
-            <FontAwesomeIcon icon="times" class="fa-sm" />
+            <FontAwesomeIcon icon="xmark" class="fa-sm" />
           </button>
         </div>
         <div class="flex-row add" role="cell" v-visible="isOpenToday">

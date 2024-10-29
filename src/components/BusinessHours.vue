@@ -74,7 +74,7 @@ export default {
         },
         close: {
           invalidInput:
-            'Please enter a closing time in the 12 hour format (ie. 05:00 PM). You may also enter "24 hours" or "Midnight".',
+            'Please enter a closing time. You may also enter "24 hours" or "Midnight".',
           greaterThanNext:
             'Please enter a closing time that is after the opening time.',
           lessThanPrevious:

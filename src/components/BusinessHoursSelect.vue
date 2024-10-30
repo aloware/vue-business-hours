@@ -4,13 +4,10 @@
             :name="optionName"
             :disabled="isDisabled"
             v-model="selected"
-            @focus="hidePlaceholder"
-            @change="inputEventHandler"
-            @blur="showPlaceholder">
+            @change="inputEventHandler">
       <option value
               disabled
-              v-show="isFirstRow(index) && onlyOneRow(hours)"
-              v-if="isPlaceholderVisible">
+              v-show="isFirstRow(index) && onlyOneRow(hours)">
         {{ defaultText }}
       </option>
       <option value="24hrs"
@@ -46,20 +43,6 @@ export default {
     is24hrsVisible: {
       type: Boolean,
       default: true
-    }
-  },
-  data () {
-    return {
-      isPlaceholderVisible: true
-    }
-  },
-  methods: {
-    hidePlaceholder() {
-      this.isPlaceholderVisible = false;
-      this.$refs.hoursSelect.blur();
-    },
-    showPlaceholder() {
-      this.isPlaceholderVisible = true;
     }
   }
 };

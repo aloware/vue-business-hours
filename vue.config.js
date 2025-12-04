@@ -2,10 +2,10 @@ module.exports = {
   chainWebpack: config => {
     // For demo/serve mode
     if (process.env.NODE_ENV !== 'production' || process.env.VUE_CLI_BUILD_TARGET !== 'lib') {
-      config
-        .entry('app')
-        .clear()
-        .add('./demo/main.js');
+    config
+      .entry('app')
+      .clear()
+      .add('./demo/main.js');
     }
     
     // Configure externals for library build

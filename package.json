@@ -46,7 +46,7 @@
     "minimist": "^1.2.8",
     "sass": "^1.94.2",
     "sass-loader": "^10.5.2",
-    "vue": "^2.7.16",
+    "vue": "^3.5.25",
     "vue-template-compiler": "^2.7.16"
   },
   "eslintConfig": {

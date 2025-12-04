@@ -42,7 +42,7 @@
     "cross-env": "^7.0.3",
     "esbuild": "^0.27.1",
     "eslint": "^8.57.0",
-    "eslint-plugin-vue": "^8.7.1",
+    "eslint-plugin-vue": "^10.6.2",
     "minimist": "^1.2.8",
     "sass": "^1.94.2",
     "sass-loader": "^10.5.2",

@@ -37,8 +37,8 @@ Vue.component('BusinessHours', BusinessHours);
 You can also add this component straight to an HTML page with a `<script>` tag along with Vue and Moment.js.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2/dist/moment.min.js"></script>
 <script src="https://unpkg.com/vue-business-hours"></script>
 ```
 

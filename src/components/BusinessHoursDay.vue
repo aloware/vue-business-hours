@@ -1,6 +1,6 @@
 <template>
   <div is="transition-group" name="fade">
-    <div v-for="({ open, close, id, isOpen }, index) in hours" :key="id">
+    <div v-for="({ open, close, id }, index) in hours" :key="id">
       <div class="flex-table row" role="rowgroup">
         <div class="flex-row day" role="cell">
           <div v-if="showDay(index)">{{ localization.days[day] }}</div>
@@ -128,6 +128,7 @@
 </template>
 
 <script>
+/* eslint-disable vue/no-mutating-props */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import uniqid from 'uniqid';
 import { ToggleButton } from 'vue-js-toggle-button';

@@ -1,7 +1,7 @@
 {
   "name": "vue-business-hours",
   "description": "Vue component for selecting business hours.",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "author": "sbarry50",
   "repository": {
     "type": "git",
@@ -9,19 +9,21 @@
   },
   "license": "MIT",
   "private": false,
-  "main": "dist/vue-business-hours.umd.js",
-  "module": "dist/vue-business-hours.esm.js",
-  "unpkg": "dist/vue-business-hours.min.js",
+    "main": "dist/VueBusinessHours.umd.js",
+    "module": "dist/VueBusinessHours.esm.js",
+    "unpkg": "dist/VueBusinessHours.umd.min.js",
   "files": [
     "dist/*",
     "src/*"
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
-    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vue-business-hours.umd.js",
-    "build:es": "rollup --config build/rollup.config.js --format es --file dist/vue-business-hours.esm.js",
-    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vue-business-hours.min.js",
+    "build": "npm run build:all && npm run build:rename-es",
+    "build:all": "cross-env VUE_CLI_BUILD_TARGET=lib vue-cli-service build --target lib --name VueBusinessHours --dest dist --formats commonjs,umd,umd-min src/entry.js",
+    "build:rename-es": "mv dist/VueBusinessHours.common.js dist/VueBusinessHours.esm.js 2>/dev/null || true",
+    "build:umd": "cross-env VUE_CLI_BUILD_TARGET=lib vue-cli-service build --target lib --name VueBusinessHours --dest dist --formats umd src/entry.js",
+    "build:es": "cross-env VUE_CLI_BUILD_TARGET=lib vue-cli-service build --target lib --name VueBusinessHours --dest dist --formats commonjs src/entry.js && mv dist/VueBusinessHours.common.js dist/VueBusinessHours.esm.js",
+    "build:unpkg": "cross-env VUE_CLI_BUILD_TARGET=lib vue-cli-service build --target lib --name VueBusinessHours --dest dist --formats umd-min src/entry.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -37,21 +39,13 @@
     "@vue/cli-plugin-babel": "^5.0.9",
     "@vue/cli-plugin-eslint": "^5.0.9",
     "@vue/cli-service": "^5.0.9",
-    "babel-eslint": "^10.0.3",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.2.3",
+    "@babel/eslint-parser": "^7.25.9",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^8.7.1",
     "minimist": "^1.2.8",
     "sass": "^1.94.2",
-    "rollup": "^4.53.3",
-    "rollup-plugin-buble": "^0.19.8",
-    "rollup-plugin-commonjs": "^9.2.1",
-    "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-node-globals": "^1.4.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-replace": "^2.1.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-vue": "^6.0.0",
     "sass-loader": "^10.5.2",
+    "cross-env": "^7.0.3",
     "vue": "^2.7.16",
     "vue-template-compiler": "^2.7.16"
   },
@@ -66,7 +60,8 @@
     ],
     "rules": {},
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@babel/eslint-parser",
+      "requireConfigFile": false
     }
   },
   "postcss": {

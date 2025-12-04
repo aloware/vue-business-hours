@@ -128,13 +128,13 @@
 </template>
 
 <script>
-import BusinessHoursSelect from './BusinessHoursSelect.vue';
-import BusinessHoursDatalist from './BusinessHoursDatalist.vue';
-import { ToggleButton } from 'vue-js-toggle-button';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import uniqid from 'uniqid';
+import { ToggleButton } from 'vue-js-toggle-button';
 import { helperMixin } from '../mixins/helperMixin';
 import { validationMixin } from '../mixins/validationMixin';
-import uniqid from 'uniqid';
+import BusinessHoursDatalist from './BusinessHoursDatalist.vue';
+import BusinessHoursSelect from './BusinessHoursSelect.vue';
 export default {
   name: 'BusinessHoursDay',
   components: {
@@ -337,8 +337,8 @@ export default {
   width: 20%;
 }
 
-.flex-row /deep/ input,
-.flex-row /deep/ select {
+.flex-row ::v-deep input,
+.flex-row ::v-deep select {
   margin: 1px;
   padding: 3px 5px;
   width: 110px;

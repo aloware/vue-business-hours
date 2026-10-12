@@ -176,4 +176,17 @@ export default {
   font-size: inherit;
   color: var(--bh-text, inherit);
 }
+
+/* On a phone each day is a block of its own, with a hairline and room between days */
+@media (max-width: 575.98px) {
+  .business-hours-container--modern > * {
+    display: block;
+  }
+
+  .business-hours-container--modern > * + * {
+    margin-top: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--bh-divider, #eaecf0);
+  }
+}
 </style>

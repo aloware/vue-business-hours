@@ -167,6 +167,7 @@ or any ancestor:
 | `--bh-switch-on`     | the `color` prop          | An open day's switch and focused selects |
 | `--bh-switch-off`    | `#dcdfe6`                 | A closed day's switch                    |
 | `--bh-focus`         | `rgba(18, 183, 106, 0.45)`| The switch's keyboard focus ring         |
+| `--bh-divider`       | `#eaecf0`                 | The line between days on a phone         |
 
 ```html
 <business-hours

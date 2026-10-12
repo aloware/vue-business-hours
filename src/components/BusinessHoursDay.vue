@@ -483,7 +483,6 @@ button.add-hours {
 
 /* Modern variant. Each value reads a CSS variable first, so a page can match its own form styles. */
 .business-hours-container--modern .flex-table {
-  flex-wrap: wrap;
   gap: 8px 12px;
   height: auto;
   margin: 0 0 8px;
@@ -495,16 +494,23 @@ button.add-hours {
 }
 
 .business-hours-container--modern .flex-row.day {
+  flex: none;
   width: 6.5rem;
   font-size: var(--bh-font-size, 13px);
 }
 
+/* A flex cell, so the switch centres on the selects rather than sitting on a text baseline */
 .business-hours-container--modern .flex-row.toggle {
+  display: flex;
+  flex: none;
+  align-items: center;
   width: 5.75rem;
 }
 
+/* The selects give up width before a split day's Add hours wraps to a line of its own */
 .business-hours-container--modern .flex-row.hours {
-  width: 9rem;
+  flex: 0 1 9rem;
+  min-width: 6.5rem;
 }
 
 .business-hours-container--modern .flex-row.dash {
@@ -517,7 +523,7 @@ button.add-hours {
   width: 100%;
   height: var(--bh-control-height, 32px);
   margin: 0;
-  padding: 0 8px;
+  padding: 0 28px 0 10px;
   border: 1px solid var(--bh-border, #d0d5dd);
   border-radius: var(--bh-radius, 6px);
   background-color: #fff;
@@ -525,6 +531,15 @@ button.add-hours {
   font: inherit;
   font-size: var(--bh-font-size, 13px);
   line-height: normal;
+}
+
+.business-hours-container--modern .flex-row ::v-deep select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  background-size: 12px;
+  cursor: pointer;
 }
 
 .business-hours-container--modern .flex-row ::v-deep input:focus,
@@ -544,8 +559,32 @@ button.add-hours {
   font-weight: 600;
 }
 
+.business-hours-container--modern .flex-row.remove,
+.business-hours-container--modern .flex-row.add {
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
 .business-hours-container--modern button.font-awesome-button {
-  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  color: var(--bh-text-muted, #667085);
+  font-size: 14px;
+}
+
+.business-hours-container--modern button.font-awesome-button:hover {
+  background-color: rgba(16, 24, 40, 0.06);
+  color: var(--bh-text, #344054);
+}
+
+.business-hours-container--modern button.font-awesome-button .fa-times,
+.business-hours-container--modern button.font-awesome-button svg {
+  color: inherit;
 }
 
 .business-hours-container--modern .time-errors {
@@ -607,12 +646,18 @@ button.add-hours {
 
 /* On a phone the day and its switch share a line, and the hours take the next one */
 @media (max-width: 575.98px) {
+  /* A fourth column holds a split row's remove button; it is empty, and so 0 wide, on other rows */
   .business-hours-container--modern .flex-table {
     display: grid;
     grid-template-areas:
-      'day day toggle'
-      'open dash close';
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      'day day toggle toggle'
+      'open dash close remove';
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto;
+    column-gap: 0;
+  }
+
+  .business-hours-container--modern .flex-row.dash {
+    padding: 0 12px;
   }
 
   .business-hours-container--modern .flex-row.day {
@@ -628,6 +673,7 @@ button.add-hours {
 
   .business-hours-container--modern .flex-row.hours {
     width: auto;
+    min-width: 0;
   }
 
   .business-hours-container--modern .flex-row.hours.open {
@@ -646,7 +692,11 @@ button.add-hours {
     grid-column: 1 / -1;
   }
 
-  .business-hours-container--modern .flex-row.remove,
+  .business-hours-container--modern .flex-row.remove {
+    grid-area: remove;
+    margin-left: 4px;
+  }
+
   .business-hours-container--modern .flex-row.add {
     grid-column: 1 / -1;
   }

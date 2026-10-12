@@ -8,6 +8,17 @@
       <business-hours :days="demoDays" :time-increment="15"></business-hours>
     </div>
     <div class="demo-component">
+      <h2>Modern Variant, Select Mode</h2>
+      <business-hours
+        :days="demoDaysModern"
+        name="modernHours"
+        type="select"
+        variant="modern"
+        color="#00a344"
+        :localization="{ placeholderOpens: 'Opens', placeholderCloses: 'Closes' }"
+      ></business-hours>
+    </div>
+    <div class="demo-component">
       <h2>Holiday Hours, Select Mode</h2>
       <business-hours
         :days="demoHolidays"
@@ -63,6 +74,7 @@ export default {
   data() {
     return {
       demoDays: demoDays,
+      demoDaysModern: JSON.parse(JSON.stringify(demoDays)),
       demoDaysSpanish: demoDaysSpanish,
       demoHolidays: demoHolidays,
       demoDaysErrors: demoDaysErrors,

@@ -1,13 +1,38 @@
 <template>
   <div is="transition-group" name="fade">
     <div v-for="({ open, close, id }, index) in hours" :key="id">
-      <div class="flex-table row" role="rowgroup">
+      <div
+        class="flex-table row"
+        :class="{ 'is-all-day': isAllDay(index) }"
+        role="rowgroup"
+      >
         <div class="flex-row day" role="cell">
           <div v-if="showDay(index)">{{ localization.days[day] }}</div>
         </div>
         <div class="flex-row toggle" role="cell">
+          <button
+            v-if="showDay(index) && isModern"
+            type="button"
+            role="switch"
+            class="bh-switch"
+            :class="{ 'is-on': anyOpen }"
+            :aria-checked="anyOpen ? 'true' : 'false'"
+            :aria-label="localization.days[day]"
+            @click="
+              toggleOpen();
+              resetHours();
+              runValidations();
+            "
+          >
+            <span class="bh-switch__track" aria-hidden="true">
+              <span class="bh-switch__knob"></span>
+            </span>
+            <span class="bh-switch__text" aria-hidden="true">{{
+              anyOpen ? localization.switchOpen : localization.switchClosed
+            }}</span>
+          </button>
           <ToggleButton
-            v-if="showDay(index)"
+            v-else-if="showDay(index)"
             @change="
               toggleOpen();
               resetHours();
@@ -59,7 +84,7 @@
           </div>
         </transition>
         <transition name="fade">
-          <div class="flex-row dash" role="cell" v-visible="isOpenToday">-</div>
+          <div class="flex-row dash" role="cell" v-visible="isOpenToday">{{ separatorText }}</div>
         </transition>
         <transition name="fade">
           <div class="flex-row hours" role="cell" v-visible="isOpenToday">
@@ -178,9 +203,23 @@ export default {
     },
     hourFormat24: {
       type: Boolean
+    },
+    variant: {
+      type: String,
+      default: 'classic'
     }
   },
   computed: {
+    isModern: function() {
+      return this.variant === 'modern';
+    },
+    separatorText: function() {
+      if (this.localization.separator) {
+        return this.localization.separator;
+      }
+
+      return this.isModern ? 'to' : '-';
+    },
     totalInputs: function() {
       return this.hours.length * 2;
     },
@@ -317,6 +356,9 @@ export default {
       const updatedHours = { [this.day]: this.hours };
       this.$emit('hours-change', updatedHours);
     },
+    isAllDay: function(index) {
+      return this.hours[index].open === '24hrs';
+    },
     checkOpenHours: function (index) {
       return !this.hours[index]['open'] || this.hours[index]['open'] === '24hrs'
     }
@@ -437,5 +479,194 @@ button.add-hours {
 
 .time-errors li {
   margin-bottom: 6px;
+}
+
+/* Modern variant. Each value reads a CSS variable first, so a page can match its own form styles. */
+.business-hours-container--modern .flex-table {
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  height: auto;
+  margin: 0 0 8px;
+}
+
+.business-hours-container--modern .flex-row {
+  width: auto;
+  margin: 0;
+}
+
+.business-hours-container--modern .flex-row.day {
+  width: 6.5rem;
+  font-size: var(--bh-font-size, 13px);
+}
+
+.business-hours-container--modern .flex-row.toggle {
+  width: 5.75rem;
+}
+
+.business-hours-container--modern .flex-row.hours {
+  width: 9rem;
+}
+
+.business-hours-container--modern .flex-row.dash {
+  color: var(--bh-text-muted, #667085);
+  font-size: var(--bh-font-size, 13px);
+}
+
+.business-hours-container--modern .flex-row ::v-deep input,
+.business-hours-container--modern .flex-row ::v-deep select {
+  width: 100%;
+  height: var(--bh-control-height, 32px);
+  margin: 0;
+  padding: 0 8px;
+  border: 1px solid var(--bh-border, #d0d5dd);
+  border-radius: var(--bh-radius, 6px);
+  background-color: #fff;
+  color: inherit;
+  font: inherit;
+  font-size: var(--bh-font-size, 13px);
+  line-height: normal;
+}
+
+.business-hours-container--modern .flex-row ::v-deep input:focus,
+.business-hours-container--modern .flex-row ::v-deep select:focus {
+  border-color: var(--bh-switch-on, var(--bh-switch-on-color));
+  outline: 0;
+}
+
+/* 24 hours needs no closing time */
+.business-hours-container--modern .is-all-day > .dash,
+.business-hours-container--modern .is-all-day > .hours:not(.open) {
+  display: none;
+}
+
+.business-hours-container--modern button.add-hours {
+  font-size: var(--bh-font-size, 13px);
+  font-weight: 600;
+}
+
+.business-hours-container--modern button.font-awesome-button {
+  font-size: 16px;
+}
+
+.business-hours-container--modern .time-errors {
+  margin-bottom: 8px;
+}
+
+.bh-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--bh-text-muted, #667085);
+  font: inherit;
+  font-size: var(--bh-font-size, 13px);
+  cursor: pointer;
+}
+
+.bh-switch.is-on {
+  color: inherit;
+}
+
+.bh-switch:focus-visible {
+  border-radius: 999px;
+  outline: 2px solid var(--bh-focus, rgba(18, 183, 106, 0.45));
+  outline-offset: 2px;
+}
+
+.bh-switch__track {
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 20px;
+  border-radius: 999px;
+  background-color: var(--bh-switch-off, #dcdfe6);
+  transition: background-color 0.2s ease;
+}
+
+.bh-switch.is-on .bh-switch__track {
+  background-color: var(--bh-switch-on, var(--bh-switch-on-color));
+}
+
+.bh-switch__knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.12);
+  transition: transform 0.2s ease;
+}
+
+.bh-switch.is-on .bh-switch__knob {
+  transform: translateX(20px);
+}
+
+/* On a phone the day and its switch share a line, and the hours take the next one */
+@media (max-width: 575.98px) {
+  .business-hours-container--modern .flex-table {
+    display: grid;
+    grid-template-areas:
+      'day day toggle'
+      'open dash close';
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+
+  .business-hours-container--modern .flex-row.day {
+    grid-area: day;
+    width: auto;
+  }
+
+  .business-hours-container--modern .flex-row.toggle {
+    grid-area: toggle;
+    justify-self: end;
+    width: auto;
+  }
+
+  .business-hours-container--modern .flex-row.hours {
+    width: auto;
+  }
+
+  .business-hours-container--modern .flex-row.hours.open {
+    grid-area: open;
+  }
+
+  .business-hours-container--modern .flex-row.dash {
+    grid-area: dash;
+  }
+
+  .business-hours-container--modern .flex-row.hours:not(.open) {
+    grid-area: close;
+  }
+
+  .business-hours-container--modern .is-all-day > .flex-row.hours.open {
+    grid-column: 1 / -1;
+  }
+
+  .business-hours-container--modern .flex-row.remove,
+  .business-hours-container--modern .flex-row.add {
+    grid-column: 1 / -1;
+  }
+
+  /* With no button in them they would still take a grid row each */
+  .business-hours-container--modern .flex-row.remove:empty,
+  .business-hours-container--modern .flex-row.add:empty {
+    display: none;
+  }
+
+  /* A closed day keeps no empty second row */
+  .business-hours-container--modern .flex-row[style*='visibility: hidden'] {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bh-switch__track,
+  .bh-switch__knob {
+    transition: none;
+  }
 }
 </style>

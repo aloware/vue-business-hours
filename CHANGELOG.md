@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-10-12
+
+### Added
+
+- `variant="modern"`: a plain switch with Open or Closed beside it, "to" between the times, one select for a 24-hour
+  day, the page's font, a stacked layout under 576px, and colors and sizes from CSS custom properties.
+- `localization.separator` sets the text between the opening and closing times.
+
+### Changed
+
+- `localization` accepts a partial object; keys left out fall back to the defaults.
+
 ## [1.4.2] - 2024-09-23
 
 ### Fixed

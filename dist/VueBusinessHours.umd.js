@@ -1189,12 +1189,18 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHours.vue?vue&type=template&id=1b4fc8cf&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHours.vue?vue&type=template&id=70cae4b5&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "business-hours-container"
+    staticClass: "business-hours-container",
+    class: {
+      'business-hours-container--modern': _vm.isModern
+    },
+    style: _vm.isModern ? {
+      '--bh-switch-on-color': _vm.color
+    } : null
   }, _vm._l(_vm.days, function (hours, day) {
     return _c('business-hours-day', {
       key: day,
@@ -1205,9 +1211,10 @@ var render = function render() {
         "time-increment": _vm.timeIncrement,
         "type": _vm.type,
         "color": _vm.color,
-        "localization": _vm.localization,
+        "localization": _vm.mergedLocalization,
         "switch-width": _vm.switchWidth,
-        "hour-format24": _vm.hourFormat24
+        "hour-format24": _vm.hourFormat24,
+        "variant": _vm.variant
       },
       on: {
         "hours-change": _vm.hoursChange
@@ -1217,8 +1224,8 @@ var render = function render() {
 };
 var staticRenderFns = [];
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDay.vue?vue&type=template&id=421d5220&scoped=true
-var BusinessHoursDayvue_type_template_id_421d5220_scoped_true_render = function render() {
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDay.vue?vue&type=template&id=72c2db8c&scoped=true
+var BusinessHoursDayvue_type_template_id_72c2db8c_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("transition-group", {
@@ -1234,6 +1241,9 @@ var BusinessHoursDayvue_type_template_id_421d5220_scoped_true_render = function 
       key: id
     }, [_c('div', {
       staticClass: "flex-table row",
+      class: {
+        'is-all-day': _vm.isAllDay(index)
+      },
       attrs: {
         "role": "rowgroup"
       }
@@ -1247,7 +1257,30 @@ var BusinessHoursDayvue_type_template_id_421d5220_scoped_true_render = function 
       attrs: {
         "role": "cell"
       }
-    }, [_vm.showDay(index) ? _c('ToggleButton', {
+    }, [_vm.showDay(index) && _vm.isModern ? _c('button', {
+      staticClass: "bh-switch",
+      class: {
+        'is-on': _vm.anyOpen
+      },
+      attrs: {
+        "type": "button",
+        "role": "switch",
+        "aria-checked": _vm.anyOpen ? 'true' : 'false',
+        "aria-label": _vm.localization.days[_vm.day]
+      },
+      on: {
+        "click": function click($event) {
+          _vm.toggleOpen();
+          _vm.resetHours();
+          _vm.runValidations();
+        }
+      }
+    }, [_vm._m(0, true), _c('span', {
+      staticClass: "bh-switch__text",
+      attrs: {
+        "aria-hidden": "true"
+      }
+    }, [_vm._v(_vm._s(_vm.anyOpen ? _vm.localization.switchOpen : _vm.localization.switchClosed))])]) : _vm.showDay(index) ? _c('ToggleButton', {
       attrs: {
         "value": _vm.anyOpen,
         "sync": true,
@@ -1334,7 +1367,7 @@ var BusinessHoursDayvue_type_template_id_421d5220_scoped_true_render = function 
       attrs: {
         "role": "cell"
       }
-    }, [_vm._v("-")])]), _c('transition', {
+    }, [_vm._v(_vm._s(_vm.separatorText))])]), _c('transition', {
       attrs: {
         "name": "fade"
       }
@@ -1452,7 +1485,20 @@ var BusinessHoursDayvue_type_template_id_421d5220_scoped_true_render = function 
     }), 0) : _vm._e()]);
   }), 0);
 };
-var BusinessHoursDayvue_type_template_id_421d5220_scoped_true_staticRenderFns = [];
+var BusinessHoursDayvue_type_template_id_72c2db8c_scoped_true_staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('span', {
+    staticClass: "bh-switch__track",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_c('span', {
+    staticClass: "bh-switch__knob"
+  })]);
+}];
+
+;// ./src/components/BusinessHoursDay.vue?vue&type=template&id=72c2db8c&scoped=true
 
 ;// ./node_modules/@fortawesome/fontawesome-svg-core/index.es.js
 /*!
@@ -5158,9 +5204,22 @@ function _toPrimitive(t, r) { if ("object" != BusinessHoursDayvue_type_script_la
     },
     hourFormat24: {
       type: Boolean
+    },
+    variant: {
+      type: String,
+      default: 'classic'
     }
   },
   computed: {
+    isModern: function isModern() {
+      return this.variant === 'modern';
+    },
+    separatorText: function separatorText() {
+      if (this.localization.separator) {
+        return this.localization.separator;
+      }
+      return this.isModern ? 'to' : '-';
+    },
     totalInputs: function totalInputs() {
       return this.hours.length * 2;
     },
@@ -5261,6 +5320,9 @@ function _toPrimitive(t, r) { if ("object" != BusinessHoursDayvue_type_script_la
       var updatedHours = BusinessHoursDayvue_type_script_lang_js_defineProperty({}, this.day, this.hours);
       this.$emit('hours-change', updatedHours);
     },
+    isAllDay: function isAllDay(index) {
+      return this.hours[index].open === '24hrs';
+    },
     checkOpenHours: function checkOpenHours(index) {
       return !this.hours[index]['open'] || this.hours[index]['open'] === '24hrs';
     }
@@ -5268,10 +5330,10 @@ function _toPrimitive(t, r) { if ("object" != BusinessHoursDayvue_type_script_la
 });
 ;// ./src/components/BusinessHoursDay.vue?vue&type=script&lang=js
  /* harmony default export */ var components_BusinessHoursDayvue_type_script_lang_js = (BusinessHoursDayvue_type_script_lang_js); 
-;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-22.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-22.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-22.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-22.use[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDay.vue?vue&type=style&index=0&id=421d5220&prod&lang=scss&scoped=true
+;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-22.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-22.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-22.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-22.use[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDay.vue?vue&type=style&index=0&id=72c2db8c&prod&lang=scss&scoped=true
 // extracted by mini-css-extract-plugin
 
-;// ./src/components/BusinessHoursDay.vue?vue&type=style&index=0&id=421d5220&prod&lang=scss&scoped=true
+;// ./src/components/BusinessHoursDay.vue?vue&type=style&index=0&id=72c2db8c&prod&lang=scss&scoped=true
 
 ;// ./src/components/BusinessHoursDay.vue
 
@@ -5284,18 +5346,73 @@ function _toPrimitive(t, r) { if ("object" != BusinessHoursDayvue_type_script_la
 
 var BusinessHoursDay_component = normalizeComponent(
   components_BusinessHoursDayvue_type_script_lang_js,
-  BusinessHoursDayvue_type_template_id_421d5220_scoped_true_render,
-  BusinessHoursDayvue_type_template_id_421d5220_scoped_true_staticRenderFns,
+  BusinessHoursDayvue_type_template_id_72c2db8c_scoped_true_render,
+  BusinessHoursDayvue_type_template_id_72c2db8c_scoped_true_staticRenderFns,
   false,
   null,
-  "421d5220",
+  "72c2db8c",
   null
   
 )
 
 /* harmony default export */ var BusinessHoursDay = (BusinessHoursDay_component.exports);
 ;// ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHours.vue?vue&type=script&lang=js
+function BusinessHoursvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return BusinessHoursvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, BusinessHoursvue_type_script_lang_js_typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function BusinessHoursvue_type_script_lang_js_objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { BusinessHoursvue_type_script_lang_js_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function BusinessHoursvue_type_script_lang_js_defineProperty(e, r, t) { return (r = BusinessHoursvue_type_script_lang_js_toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function BusinessHoursvue_type_script_lang_js_toPropertyKey(t) { var i = BusinessHoursvue_type_script_lang_js_toPrimitive(t, "string"); return "symbol" == BusinessHoursvue_type_script_lang_js_typeof(i) ? i : i + ""; }
+function BusinessHoursvue_type_script_lang_js_toPrimitive(t, r) { if ("object" != BusinessHoursvue_type_script_lang_js_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != BusinessHoursvue_type_script_lang_js_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
+var defaultLocalization = function defaultLocalization() {
+  return {
+    switchOpen: 'Open',
+    switchClosed: 'Closed',
+    placeholderOpens: 'Open',
+    placeholderCloses: 'Closed',
+    addHours: 'Add hours',
+    open: {
+      invalidInput: 'Please enter an opening time in the 12 hour format (ie. 08:00 AM). You may also enter "24 hours".',
+      greaterThanNext: 'Please enter an opening time that is before the closing time.',
+      lessThanPrevious: 'Please enter an opening time that is after the previous closing time.',
+      midnightNotLast: "Midnight can only be selected for the day's last closing time."
+    },
+    close: {
+      invalidInput: 'Please enter a closing time. You may also enter "24 hours" or "Midnight".',
+      greaterThanNext: 'Please enter a closing time that is after the opening time.',
+      lessThanPrevious: 'Please enter a closing time that is before the next opening time.',
+      midnightNotLast: "Midnight can only be selected for the day's last closing time."
+    },
+    t24hours: '24 hours',
+    midnight: 'Midnight',
+    days: {
+      monday: 'Monday',
+      tuesday: 'Tuesday',
+      wednesday: 'Wednesday',
+      thursday: 'Thursday',
+      friday: 'Friday',
+      saturday: 'Saturday',
+      sunday: 'Sunday',
+      newYearsEve: 'New Year\'s Eve',
+      // prettier-ignore
+      newYearsDay: 'New Year\'s Day',
+      // prettier-ignore
+      martinLutherKingJrDay: 'Martin Luther King, Jr. Day',
+      presidentsDay: 'Presidents\' Day',
+      // prettier-ignore
+      easter: 'Easter',
+      memorialDay: 'Memorial Day',
+      independenceDay: 'Independence Day',
+      fourthOfJuly: '4th of July',
+      laborDay: 'Labor Day',
+      columbusDay: 'Columbus Day',
+      veteransDay: 'Veterans Day',
+      thanksgiving: 'Thanksgiving',
+      christmasEve: 'Christmas Eve',
+      christmas: 'Christmas'
+    }
+  };
+};
 /* harmony default export */ var BusinessHoursvue_type_script_lang_js = ({
   name: 'BusinessHours',
   components: {
@@ -5331,57 +5448,10 @@ var BusinessHoursDay_component = normalizeComponent(
         return value.charAt(0) === '#' ? true : false;
       }
     },
+    // Any keys left out fall back to the defaults, so a partial object is enough
     localization: {
       type: Object,
-      default: function _default() {
-        return {
-          switchOpen: 'Open',
-          switchClosed: 'Closed',
-          placeholderOpens: 'Open',
-          placeholderCloses: 'Closed',
-          addHours: 'Add hours',
-          open: {
-            invalidInput: 'Please enter an opening time in the 12 hour format (ie. 08:00 AM). You may also enter "24 hours".',
-            greaterThanNext: 'Please enter an opening time that is before the closing time.',
-            lessThanPrevious: 'Please enter an opening time that is after the previous closing time.',
-            midnightNotLast: "Midnight can only be selected for the day's last closing time."
-          },
-          close: {
-            invalidInput: 'Please enter a closing time. You may also enter "24 hours" or "Midnight".',
-            greaterThanNext: 'Please enter a closing time that is after the opening time.',
-            lessThanPrevious: 'Please enter a closing time that is before the next opening time.',
-            midnightNotLast: "Midnight can only be selected for the day's last closing time."
-          },
-          t24hours: '24 hours',
-          midnight: 'Midnight',
-          days: {
-            monday: 'Monday',
-            tuesday: 'Tuesday',
-            wednesday: 'Wednesday',
-            thursday: 'Thursday',
-            friday: 'Friday',
-            saturday: 'Saturday',
-            sunday: 'Sunday',
-            newYearsEve: 'New Year\'s Eve',
-            // prettier-ignore
-            newYearsDay: 'New Year\'s Day',
-            // prettier-ignore
-            martinLutherKingJrDay: 'Martin Luther King, Jr. Day',
-            presidentsDay: 'Presidents\' Day',
-            // prettier-ignore
-            easter: 'Easter',
-            memorialDay: 'Memorial Day',
-            independenceDay: 'Independence Day',
-            fourthOfJuly: '4th of July',
-            laborDay: 'Labor Day',
-            columbusDay: 'Columbus Day',
-            veteransDay: 'Veterans Day',
-            thanksgiving: 'Thanksgiving',
-            christmasEve: 'Christmas Eve',
-            christmas: 'Christmas'
-          }
-        };
-      }
+      default: defaultLocalization
     },
     switchWidth: {
       type: Number,
@@ -5390,6 +5460,29 @@ var BusinessHoursDay_component = normalizeComponent(
     hourFormat24: {
       type: Boolean,
       default: false
+    },
+    // 'modern': a plain switch with Open or Closed beside it, "to" between the times, one select for a 24-hour
+    // day, and the page's font. Its colors and sizes come from the CSS variables listed in the README.
+    variant: {
+      type: String,
+      default: 'classic',
+      validator: function validator(value) {
+        return ['classic', 'modern'].indexOf(value) !== -1;
+      }
+    }
+  },
+  computed: {
+    isModern: function isModern() {
+      return this.variant === 'modern';
+    },
+    mergedLocalization: function mergedLocalization() {
+      var defaults = defaultLocalization();
+      var given = this.localization || {};
+      return BusinessHoursvue_type_script_lang_js_objectSpread(BusinessHoursvue_type_script_lang_js_objectSpread(BusinessHoursvue_type_script_lang_js_objectSpread({}, defaults), given), {}, {
+        open: BusinessHoursvue_type_script_lang_js_objectSpread(BusinessHoursvue_type_script_lang_js_objectSpread({}, defaults.open), given.open),
+        close: BusinessHoursvue_type_script_lang_js_objectSpread(BusinessHoursvue_type_script_lang_js_objectSpread({}, defaults.close), given.close),
+        days: BusinessHoursvue_type_script_lang_js_objectSpread(BusinessHoursvue_type_script_lang_js_objectSpread({}, defaults.days), given.days)
+      });
     }
   },
   methods: {
@@ -5400,10 +5493,10 @@ var BusinessHoursDay_component = normalizeComponent(
 });
 ;// ./src/components/BusinessHours.vue?vue&type=script&lang=js
  /* harmony default export */ var components_BusinessHoursvue_type_script_lang_js = (BusinessHoursvue_type_script_lang_js); 
-;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-12.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHours.vue?vue&type=style&index=0&id=1b4fc8cf&prod&scoped=true&lang=css
+;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-12.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHours.vue?vue&type=style&index=0&id=70cae4b5&prod&scoped=true&lang=css
 // extracted by mini-css-extract-plugin
 
-;// ./src/components/BusinessHours.vue?vue&type=style&index=0&id=1b4fc8cf&prod&scoped=true&lang=css
+;// ./src/components/BusinessHours.vue?vue&type=style&index=0&id=70cae4b5&prod&scoped=true&lang=css
 
 ;// ./src/components/BusinessHours.vue
 
@@ -5420,7 +5513,7 @@ var BusinessHours_component = normalizeComponent(
   staticRenderFns,
   false,
   null,
-  "1b4fc8cf",
+  "70cae4b5",
   null
   
 )

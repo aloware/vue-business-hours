@@ -143,8 +143,41 @@ The width of the component is set by its containing element's width. For default
 | localization  | Object  | no       | [see below](#localization) | An object of all texts used in component                                                                 |
 | switchWidth   | Number  | no       | `90`                       | Width of toggle switch                                                                                   |
 | hourFormat24  | Boolean | no       | `false`                    | Use 24 hour format                                                                                       |
+| variant       | String  | no       | `classic`                  | `classic` or `modern`. See [Modern variant](#modern-variant)                                             |
 
 **Reminder**: Prop names [should always use kebab-case](https://vuejs.org/v2/style-guide/#Prop-name-casing-strongly-recommended) in templates and JSX.
+
+### Modern variant
+
+`variant="modern"` draws each day with a plain switch and Open or Closed beside it, "to" between the opening and
+closing times, and a single select for a 24-hour day. It takes the font of the page around it, and on screens under
+576px the hours move to a line under the day. `switchWidth` doesn't apply to it.
+
+Its colors and sizes read these CSS custom properties, so a page can match its own forms. Set them on the component
+or any ancestor:
+
+| Property             | Default                   | Used for                                 |
+| -------------------- | ------------------------- | ---------------------------------------- |
+| `--bh-text`          | inherited                 | Day names and an open day's label        |
+| `--bh-text-muted`    | `#667085`                 | "to" and a closed day's label            |
+| `--bh-font-size`     | `13px`                    | All text and the selects                 |
+| `--bh-border`        | `#d0d5dd`                 | Select borders                           |
+| `--bh-radius`        | `6px`                     | Select corners                           |
+| `--bh-control-height`| `32px`                    | Select height                            |
+| `--bh-switch-on`     | the `color` prop          | An open day's switch and focused selects |
+| `--bh-switch-off`    | `#dcdfe6`                 | A closed day's switch                    |
+| `--bh-focus`         | `rgba(18, 183, 106, 0.45)`| The switch's keyboard focus ring         |
+| `--bh-divider`       | `#eaecf0`                 | The line between days on a phone         |
+
+```html
+<business-hours
+  :days="days"
+  type="select"
+  variant="modern"
+  color="#00a344"
+  :localization="{ placeholderOpens: 'Opens', placeholderCloses: 'Closes' }"
+></business-hours>
+```
 
 ### Data
 
@@ -223,7 +256,9 @@ Please note that the data object days keys must match the defaults found in the 
 
 Set texts in the object to match your locale. Use appropriate `switchWidth` to fit your `switchOpen` and `switchClosed` text.
 
-Please note that if you only intend on changing a few values such as adding holidays not found below, you must still include all the other defaults or they won't display. It is recommended to start your localization file by copying/pasting the defaults below and change/add values from there.
+Keys you leave out fall back to the defaults below, so an object with only the texts you change is enough, such as
+`{ switchOpen: 'Abierto', switchClosed: 'Cerrado' }`. `separator` sets the text between the opening and closing times;
+it defaults to `-`, or to `to` in the modern variant.
 
 ```javascript
 {

@@ -556,7 +556,7 @@ button.add-hours {
 
 .business-hours-container--modern button.add-hours {
   font-size: var(--bh-font-size, 13px);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .business-hours-container--modern .flex-row.remove,
@@ -564,6 +564,12 @@ button.add-hours {
   display: flex;
   flex: none;
   align-items: center;
+}
+
+/* The remove slot keeps its width when empty, so every Add hours lines up in one column */
+.business-hours-container--modern .flex-row.remove {
+  justify-content: center;
+  width: 28px;
 }
 
 .business-hours-container--modern button.font-awesome-button {

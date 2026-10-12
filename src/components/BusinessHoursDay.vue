@@ -659,7 +659,12 @@ button.add-hours {
       'day day toggle toggle'
       'open dash close remove';
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto;
-    column-gap: 0;
+    gap: 0;
+  }
+
+  /* Space above the second line instead of a row gap, so a closed day with no second line leaves none */
+  .business-hours-container--modern .flex-row:not(.day, .toggle) {
+    margin-top: 8px;
   }
 
   .business-hours-container--modern .flex-row.dash {

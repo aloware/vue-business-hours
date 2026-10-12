@@ -697,8 +697,10 @@ button.add-hours {
     margin-left: 4px;
   }
 
+  /* Under the times, at the right edge, so it reads as their action and not as the next day */
   .business-hours-container--modern .flex-row.add {
     grid-column: 1 / -1;
+    justify-content: flex-end;
   }
 
   /* With no button in them they would still take a grid row each */

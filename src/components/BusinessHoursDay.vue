@@ -526,7 +526,7 @@ button.add-hours {
   padding: 0 28px 0 10px;
   border: 1px solid var(--bh-border, #d0d5dd);
   border-radius: var(--bh-radius, 6px);
-  background-color: #fff;
+  background-color: var(--bh-control-bg, #fff);
   color: inherit;
   font: inherit;
   font-size: var(--bh-font-size, 13px);
@@ -584,7 +584,7 @@ button.add-hours {
 }
 
 .business-hours-container--modern button.font-awesome-button:hover {
-  background-color: rgba(16, 24, 40, 0.06);
+  background-color: var(--bh-hover, rgba(16, 24, 40, 0.06));
   color: var(--bh-text, #344054);
 }
 

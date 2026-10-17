@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.1] - 2026-10-17
+
+### Added
+
+- `--bh-control-bg` and `--bh-hover` set the modern variant's select background and the remove button's hover, so
+  a dark theme can draw them. They default to the colors used before.
+
 ## [1.5.0] - 2026-10-12
 
 ### Added

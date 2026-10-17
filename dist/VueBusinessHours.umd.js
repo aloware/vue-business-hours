@@ -11,100 +11,14 @@
 return /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 3:
-/***/ (function(module, exports) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// addapted from the document.currentScript polyfill by Adam Miller
-// MIT license
-// source: https://github.com/amiller-gh/currentScript-polyfill
-
-// added support for Firefox https://bugzilla.mozilla.org/show_bug.cgi?id=1620505
-
-(function (root, factory) {
-  if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-		(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else // removed by dead control flow
-{}
-}(typeof self !== 'undefined' ? self : this, function () {
-  function getCurrentScript () {
-    var descriptor = Object.getOwnPropertyDescriptor(document, 'currentScript')
-    // for chrome
-    if (!descriptor && 'currentScript' in document && document.currentScript) {
-      return document.currentScript
-    }
-
-    // for other browsers with native support for currentScript
-    if (descriptor && descriptor.get !== getCurrentScript && document.currentScript) {
-      return document.currentScript
-    }
-  
-    // IE 8-10 support script readyState
-    // IE 11+ & Firefox support stack trace
-    try {
-      throw new Error();
-    }
-    catch (err) {
-      // Find the second match for the "at" string to get file src url from stack.
-      var ieStackRegExp = /.*at [^(]*\((.*):(.+):(.+)\)$/ig,
-        ffStackRegExp = /@([^@]*):(\d+):(\d+)\s*$/ig,
-        stackDetails = ieStackRegExp.exec(err.stack) || ffStackRegExp.exec(err.stack),
-        scriptLocation = (stackDetails && stackDetails[1]) || false,
-        line = (stackDetails && stackDetails[2]) || false,
-        currentLocation = document.location.href.replace(document.location.hash, ''),
-        pageSource,
-        inlineScriptSourceRegExp,
-        inlineScriptSource,
-        scripts = document.getElementsByTagName('script'); // Live NodeList collection
-  
-      if (scriptLocation === currentLocation) {
-        pageSource = document.documentElement.outerHTML;
-        inlineScriptSourceRegExp = new RegExp('(?:[^\\n]+?\\n){0,' + (line - 2) + '}[^<]*<script>([\\d\\D]*?)<\\/script>[\\d\\D]*', 'i');
-        inlineScriptSource = pageSource.replace(inlineScriptSourceRegExp, '$1').trim();
-      }
-  
-      for (var i = 0; i < scripts.length; i++) {
-        // If ready state is interactive, return the script tag
-        if (scripts[i].readyState === 'interactive') {
-          return scripts[i];
-        }
-  
-        // If src matches, return the script tag
-        if (scripts[i].src === scriptLocation) {
-          return scripts[i];
-        }
-  
-        // If inline source matches, return the script tag
-        if (
-          scriptLocation === currentLocation &&
-          scripts[i].innerHTML &&
-          scripts[i].innerHTML.trim() === inlineScriptSource
-        ) {
-          return scripts[i];
-        }
-      }
-  
-      // If no match, return null
-      return null;
-    }
-  };
-
-  return getCurrentScript
-}));
-
-
-/***/ }),
-
-/***/ 179:
+/***/ 84:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 var __webpack_unused_export__;
 
 __webpack_unused_export__ = ({ value: true });
-var source = __webpack_require__(976);
+var source = __webpack_require__(271);
 exports.mw = {
   prefix: source.prefix,
   iconName: source.iconName,
@@ -128,15 +42,44 @@ __webpack_unused_export__ = source.aliases;
 
 /***/ }),
 
-/***/ 416:
-/***/ (function(module) {
+/***/ 271:
+/***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
-module.exports = __WEBPACK_EXTERNAL_MODULE__416__;
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var prefix = 'fas';
+var iconName = 'xmark';
+var width = 384;
+var height = 512;
+var aliases = [128473,10005,10006,10060,215,"close","multiply","remove","times"];
+var unicode = 'f00d';
+var svgPathData = 'M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z';
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faXmark = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;
 
 /***/ }),
 
-/***/ 616:
+/***/ 299:
 /***/ (function(module) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -992,7 +935,101 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 797:
+/***/ 416:
+/***/ (function(module) {
+
+"use strict";
+module.exports = __WEBPACK_EXTERNAL_MODULE__416__;
+
+/***/ }),
+
+/***/ 678:
+/***/ (function(module, exports) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// addapted from the document.currentScript polyfill by Adam Miller
+// MIT license
+// source: https://github.com/amiller-gh/currentScript-polyfill
+
+// added support for Firefox https://bugzilla.mozilla.org/show_bug.cgi?id=1620505
+
+(function (root, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+		(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else // removed by dead control flow
+{}
+}(typeof self !== 'undefined' ? self : this, function () {
+  function getCurrentScript () {
+    var descriptor = Object.getOwnPropertyDescriptor(document, 'currentScript')
+    // for chrome
+    if (!descriptor && 'currentScript' in document && document.currentScript) {
+      return document.currentScript
+    }
+
+    // for other browsers with native support for currentScript
+    if (descriptor && descriptor.get !== getCurrentScript && document.currentScript) {
+      return document.currentScript
+    }
+  
+    // IE 8-10 support script readyState
+    // IE 11+ & Firefox support stack trace
+    try {
+      throw new Error();
+    }
+    catch (err) {
+      // Find the second match for the "at" string to get file src url from stack.
+      var ieStackRegExp = /.*at [^(]*\((.*):(.+):(.+)\)$/ig,
+        ffStackRegExp = /@([^@]*):(\d+):(\d+)\s*$/ig,
+        stackDetails = ieStackRegExp.exec(err.stack) || ffStackRegExp.exec(err.stack),
+        scriptLocation = (stackDetails && stackDetails[1]) || false,
+        line = (stackDetails && stackDetails[2]) || false,
+        currentLocation = document.location.href.replace(document.location.hash, ''),
+        pageSource,
+        inlineScriptSourceRegExp,
+        inlineScriptSource,
+        scripts = document.getElementsByTagName('script'); // Live NodeList collection
+  
+      if (scriptLocation === currentLocation) {
+        pageSource = document.documentElement.outerHTML;
+        inlineScriptSourceRegExp = new RegExp('(?:[^\\n]+?\\n){0,' + (line - 2) + '}[^<]*<script>([\\d\\D]*?)<\\/script>[\\d\\D]*', 'i');
+        inlineScriptSource = pageSource.replace(inlineScriptSourceRegExp, '$1').trim();
+      }
+  
+      for (var i = 0; i < scripts.length; i++) {
+        // If ready state is interactive, return the script tag
+        if (scripts[i].readyState === 'interactive') {
+          return scripts[i];
+        }
+  
+        // If src matches, return the script tag
+        if (scripts[i].src === scriptLocation) {
+          return scripts[i];
+        }
+  
+        // If inline source matches, return the script tag
+        if (
+          scriptLocation === currentLocation &&
+          scripts[i].innerHTML &&
+          scripts[i].innerHTML.trim() === inlineScriptSource
+        ) {
+          return scripts[i];
+        }
+      }
+  
+      // If no match, return null
+      return null;
+    }
+  };
+
+  return getCurrentScript
+}));
+
+
+/***/ }),
+
+/***/ 796:
 /***/ (function(module) {
 
 /* 
@@ -1027,43 +1064,6 @@ function now(){
     return now.last = time > last ? time : last + 1;
 }
 
-
-/***/ }),
-
-/***/ 976:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var prefix = 'fas';
-var iconName = 'xmark';
-var width = 384;
-var height = 512;
-var aliases = [128473,10005,10006,10060,215,"close","multiply","remove","times"];
-var unicode = 'f00d';
-var svgPathData = 'M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z';
-
-exports.definition = {
-  prefix: prefix,
-  iconName: iconName,
-  icon: [
-    width,
-    height,
-    aliases,
-    unicode,
-    svgPathData
-  ]};
-
-exports.faXmark = exports.definition;
-exports.prefix = prefix;
-exports.iconName = iconName;
-exports.width = width;
-exports.height = height;
-exports.ligatures = aliases;
-exports.unicode = unicode;
-exports.svgPathData = svgPathData;
-exports.aliases = aliases;
 
 /***/ })
 
@@ -1164,14 +1164,14 @@ __webpack_require__.d(__webpack_exports__, {
   "default": function() { return /* binding */ entry_lib; }
 });
 
-;// ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
+;// ../../vue-business-hours/node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 /* eslint-disable no-var */
 // This file is imported into lib/wc client bundles.
 
 if (typeof window !== 'undefined') {
   var currentScript = window.document.currentScript
   if (true) {
-    var getCurrentScript = __webpack_require__(3)
+    var getCurrentScript = __webpack_require__(678)
     currentScript = getCurrentScript()
 
     // for backward compatibility, because previously we directly included the polyfill
@@ -1189,7 +1189,7 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHours.vue?vue&type=template&id=18899862&scoped=true
+;// ../../vue-business-hours/node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHours.vue?vue&type=template&id=18899862&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -1224,8 +1224,8 @@ var render = function render() {
 };
 var staticRenderFns = [];
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDay.vue?vue&type=template&id=5b2f2f5f&scoped=true
-var BusinessHoursDayvue_type_template_id_5b2f2f5f_scoped_true_render = function render() {
+;// ../../vue-business-hours/node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDay.vue?vue&type=template&id=bc5b9f48&scoped=true
+var BusinessHoursDayvue_type_template_id_bc5b9f48_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("transition-group", {
@@ -1485,7 +1485,7 @@ var BusinessHoursDayvue_type_template_id_5b2f2f5f_scoped_true_render = function 
     }), 0) : _vm._e()]);
   }), 0);
 };
-var BusinessHoursDayvue_type_template_id_5b2f2f5f_scoped_true_staticRenderFns = [function () {
+var BusinessHoursDayvue_type_template_id_bc5b9f48_scoped_true_staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c('span', {
@@ -1498,9 +1498,9 @@ var BusinessHoursDayvue_type_template_id_5b2f2f5f_scoped_true_staticRenderFns = 
   })]);
 }];
 
-;// ./src/components/BusinessHoursDay.vue?vue&type=template&id=5b2f2f5f&scoped=true
+;// ./src/components/BusinessHoursDay.vue?vue&type=template&id=bc5b9f48&scoped=true
 
-;// ./node_modules/@fortawesome/fontawesome-svg-core/index.es.js
+;// ../../vue-business-hours/node_modules/@fortawesome/fontawesome-svg-core/index.es.js
 /*!
  * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
@@ -3937,7 +3937,7 @@ var autoReplace = function autoReplace() {
 
 
 
-;// ./node_modules/@fortawesome/vue-fontawesome/index.es.js
+;// ../../vue-business-hours/node_modules/@fortawesome/vue-fontawesome/index.es.js
 
 
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof __webpack_require__.g !== 'undefined' ? __webpack_require__.g : typeof self !== 'undefined' ? self : {};
@@ -4472,11 +4472,11 @@ var FontAwesomeLayersText = {
 
 
 
-// EXTERNAL MODULE: ./node_modules/uniqid/index.js
-var uniqid = __webpack_require__(797);
+// EXTERNAL MODULE: ../../vue-business-hours/node_modules/uniqid/index.js
+var uniqid = __webpack_require__(796);
 var uniqid_default = /*#__PURE__*/__webpack_require__.n(uniqid);
-// EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
-var dist = __webpack_require__(616);
+// EXTERNAL MODULE: ../../vue-business-hours/node_modules/vue-js-toggle-button/dist/index.js
+var dist = __webpack_require__(299);
 // EXTERNAL MODULE: external "moment"
 var external_moment_ = __webpack_require__(416);
 var external_moment_default = /*#__PURE__*/__webpack_require__.n(external_moment_);
@@ -4719,7 +4719,7 @@ var validationMixin = {
     }
   }
 };
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDatalist.vue?vue&type=template&id=e6a9d786&scoped=true
+;// ../../vue-business-hours/node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDatalist.vue?vue&type=template&id=e6a9d786&scoped=true
 var BusinessHoursDatalistvue_type_template_id_e6a9d786_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -4887,7 +4887,7 @@ var formFieldMixin = {
     }
   }
 };
-;// ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDatalist.vue?vue&type=script&lang=js
+;// ../../vue-business-hours/node_modules/thread-loader/dist/cjs.js!../../vue-business-hours/node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDatalist.vue?vue&type=script&lang=js
 
 
 /* harmony default export */ var BusinessHoursDatalistvue_type_script_lang_js = ({
@@ -4910,12 +4910,12 @@ var formFieldMixin = {
 });
 ;// ./src/components/BusinessHoursDatalist.vue?vue&type=script&lang=js
  /* harmony default export */ var components_BusinessHoursDatalistvue_type_script_lang_js = (BusinessHoursDatalistvue_type_script_lang_js); 
-;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-12.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDatalist.vue?vue&type=style&index=0&id=e6a9d786&prod&scoped=true&lang=css
+;// ../../vue-business-hours/node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-12.use[0]!../../vue-business-hours/node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!../../vue-business-hours/node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDatalist.vue?vue&type=style&index=0&id=e6a9d786&prod&scoped=true&lang=css
 // extracted by mini-css-extract-plugin
 
 ;// ./src/components/BusinessHoursDatalist.vue?vue&type=style&index=0&id=e6a9d786&prod&scoped=true&lang=css
 
-;// ./node_modules/@vue/vue-loader-v15/lib/runtime/componentNormalizer.js
+;// ../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
 
 // IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
@@ -5034,7 +5034,7 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var BusinessHoursDatalist = (component.exports);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursSelect.vue?vue&type=template&id=142bd34e&scoped=true
+;// ../../vue-business-hours/node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursSelect.vue?vue&type=template&id=142bd34e&scoped=true
 var BusinessHoursSelectvue_type_template_id_142bd34e_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -5104,7 +5104,7 @@ var BusinessHoursSelectvue_type_template_id_142bd34e_scoped_true_render = functi
 };
 var BusinessHoursSelectvue_type_template_id_142bd34e_scoped_true_staticRenderFns = [];
 
-;// ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursSelect.vue?vue&type=script&lang=js
+;// ../../vue-business-hours/node_modules/thread-loader/dist/cjs.js!../../vue-business-hours/node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursSelect.vue?vue&type=script&lang=js
 
 
 /* harmony default export */ var BusinessHoursSelectvue_type_script_lang_js = ({
@@ -5123,7 +5123,7 @@ var BusinessHoursSelectvue_type_template_id_142bd34e_scoped_true_staticRenderFns
 });
 ;// ./src/components/BusinessHoursSelect.vue?vue&type=script&lang=js
  /* harmony default export */ var components_BusinessHoursSelectvue_type_script_lang_js = (BusinessHoursSelectvue_type_script_lang_js); 
-;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-12.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursSelect.vue?vue&type=style&index=0&id=142bd34e&prod&scoped=true&lang=css
+;// ../../vue-business-hours/node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-12.use[0]!../../vue-business-hours/node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!../../vue-business-hours/node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursSelect.vue?vue&type=style&index=0&id=142bd34e&prod&scoped=true&lang=css
 // extracted by mini-css-extract-plugin
 
 ;// ./src/components/BusinessHoursSelect.vue?vue&type=style&index=0&id=142bd34e&prod&scoped=true&lang=css
@@ -5149,7 +5149,7 @@ var BusinessHoursSelect_component = normalizeComponent(
 )
 
 /* harmony default export */ var BusinessHoursSelect = (BusinessHoursSelect_component.exports);
-;// ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDay.vue?vue&type=script&lang=js
+;// ../../vue-business-hours/node_modules/thread-loader/dist/cjs.js!../../vue-business-hours/node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDay.vue?vue&type=script&lang=js
 function BusinessHoursDayvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return BusinessHoursDayvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, BusinessHoursDayvue_type_script_lang_js_typeof(o); }
 function BusinessHoursDayvue_type_script_lang_js_defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == BusinessHoursDayvue_type_script_lang_js_typeof(i) ? i : i + ""; }
@@ -5330,10 +5330,10 @@ function _toPrimitive(t, r) { if ("object" != BusinessHoursDayvue_type_script_la
 });
 ;// ./src/components/BusinessHoursDay.vue?vue&type=script&lang=js
  /* harmony default export */ var components_BusinessHoursDayvue_type_script_lang_js = (BusinessHoursDayvue_type_script_lang_js); 
-;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-22.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-22.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-22.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-22.use[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDay.vue?vue&type=style&index=0&id=5b2f2f5f&prod&lang=scss&scoped=true
+;// ../../vue-business-hours/node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-22.use[0]!../../vue-business-hours/node_modules/css-loader/dist/cjs.js??clonedRuleSet-22.use[1]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!../../vue-business-hours/node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-22.use[2]!../../vue-business-hours/node_modules/sass-loader/dist/cjs.js??clonedRuleSet-22.use[3]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHoursDay.vue?vue&type=style&index=0&id=bc5b9f48&prod&lang=scss&scoped=true
 // extracted by mini-css-extract-plugin
 
-;// ./src/components/BusinessHoursDay.vue?vue&type=style&index=0&id=5b2f2f5f&prod&lang=scss&scoped=true
+;// ./src/components/BusinessHoursDay.vue?vue&type=style&index=0&id=bc5b9f48&prod&lang=scss&scoped=true
 
 ;// ./src/components/BusinessHoursDay.vue
 
@@ -5346,17 +5346,17 @@ function _toPrimitive(t, r) { if ("object" != BusinessHoursDayvue_type_script_la
 
 var BusinessHoursDay_component = normalizeComponent(
   components_BusinessHoursDayvue_type_script_lang_js,
-  BusinessHoursDayvue_type_template_id_5b2f2f5f_scoped_true_render,
-  BusinessHoursDayvue_type_template_id_5b2f2f5f_scoped_true_staticRenderFns,
+  BusinessHoursDayvue_type_template_id_bc5b9f48_scoped_true_render,
+  BusinessHoursDayvue_type_template_id_bc5b9f48_scoped_true_staticRenderFns,
   false,
   null,
-  "5b2f2f5f",
+  "bc5b9f48",
   null
   
 )
 
 /* harmony default export */ var BusinessHoursDay = (BusinessHoursDay_component.exports);
-;// ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHours.vue?vue&type=script&lang=js
+;// ../../vue-business-hours/node_modules/thread-loader/dist/cjs.js!../../vue-business-hours/node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHours.vue?vue&type=script&lang=js
 function BusinessHoursvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return BusinessHoursvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, BusinessHoursvue_type_script_lang_js_typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function BusinessHoursvue_type_script_lang_js_objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { BusinessHoursvue_type_script_lang_js_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -5493,7 +5493,7 @@ var defaultLocalization = function defaultLocalization() {
 });
 ;// ./src/components/BusinessHours.vue?vue&type=script&lang=js
  /* harmony default export */ var components_BusinessHoursvue_type_script_lang_js = (BusinessHoursvue_type_script_lang_js); 
-;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-12.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHours.vue?vue&type=style&index=0&id=18899862&prod&scoped=true&lang=css
+;// ../../vue-business-hours/node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-12.use[0]!../../vue-business-hours/node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!../../vue-business-hours/node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../vue-business-hours/node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/BusinessHours.vue?vue&type=style&index=0&id=18899862&prod&scoped=true&lang=css
 // extracted by mini-css-extract-plugin
 
 ;// ./src/components/BusinessHours.vue?vue&type=style&index=0&id=18899862&prod&scoped=true&lang=css
@@ -5519,8 +5519,8 @@ var BusinessHours_component = normalizeComponent(
 )
 
 /* harmony default export */ var BusinessHours = (BusinessHours_component.exports);
-// EXTERNAL MODULE: ./node_modules/@fortawesome/free-solid-svg-icons/faTimes.js
-var faTimes = __webpack_require__(179);
+// EXTERNAL MODULE: ../../vue-business-hours/node_modules/@fortawesome/free-solid-svg-icons/faTimes.js
+var faTimes = __webpack_require__(84);
 ;// ./src/entry.js
 // Import vue components
 
@@ -5562,7 +5562,7 @@ BusinessHours.install = install;
 // It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
 // export const RollupDemoDirective = component;
-;// ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
+;// ../../vue-business-hours/node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 
 
 /* harmony default export */ var entry_lib = (entry);

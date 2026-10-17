@@ -163,6 +163,8 @@ or any ancestor:
 | `--bh-font-size`     | `13px`                    | All text and the selects                 |
 | `--bh-border`        | `#d0d5dd`                 | Select borders                           |
 | `--bh-radius`        | `6px`                     | Select corners                           |
+| `--bh-control-bg`    | `#fff`                    | Select backgrounds                       |
+| `--bh-hover`         | `rgba(16, 24, 40, 0.06)`  | A hovered remove button                  |
 | `--bh-control-height`| `32px`                    | Select height                            |
 | `--bh-switch-on`     | the `color` prop          | An open day's switch and focused selects |
 | `--bh-switch-off`    | `#dcdfe6`                 | A closed day's switch                    |
